@@ -1,3 +1,6 @@
+0.5.3
+- Added patient search for SOLAN.
+
 0.5.2
 - Added validation tests when rescheduling/reordering
 

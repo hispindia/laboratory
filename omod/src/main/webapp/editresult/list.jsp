@@ -3,6 +3,7 @@
 <%@ include file="../includes/js_css.jsp" %>
 <br/>
 <openmrs:require privilege="Edit Laboratory Result" otherwise="/login.htm" redirect="/module/laboratory/editResult.form" />
+<openmrs:globalProperty key="hospitalcore.hospitalName" defaultValue="ddu" var="hospitalName"/>
 <%@ include file="../localHeader.jsp" %>
 
 <style>
@@ -20,8 +21,9 @@
 
 	jQuery(document).ready(function() {
 		jQuery('#date').datepicker({yearRange:'c-30:c+30', dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
-		jQuery("#searchbox").showPatientSearchBox({					
-			resultView: "/module/laboratory/patientsearch/editresult",		
+		jQuery("#searchbox").showPatientSearchBox({				
+			searchBoxView: "${hospitalName}/default",			
+			resultView: "/module/laboratory/patientsearch/${hospitalName}/editresult",		
 			target: "#patientResult",
 			beforeNewSearch: function(){
 				jQuery("#patientSearchResultSection").hide();

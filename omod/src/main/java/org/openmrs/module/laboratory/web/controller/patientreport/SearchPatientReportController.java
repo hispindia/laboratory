@@ -56,7 +56,7 @@ public class SearchPatientReportController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String searchTest(
 			@RequestParam(value = "date", required = false) String dateStr,
-			@RequestParam(value = "patientIdentifier") String patientIdentifier,
+			@RequestParam(value = "patientId") Integer patientId,
 			HttpServletRequest request, Model model) {
 		LaboratoryService ls = (LaboratoryService) Context
 				.getService(LaboratoryService.class);
@@ -64,10 +64,9 @@ public class SearchPatientReportController {
 		Date date = null;
 		try {
 			date = sdf.parse(dateStr);
-			List<Patient> patients = Context.getPatientService().getPatients(
-					patientIdentifier);
-			if (!patients.isEmpty()) {
-				Patient patient = patients.get(0);
+			Patient patient = Context.getPatientService().getPatient(patientId);
+			if (patient!=null) {				
+				
 				List<LabTest> tests = ls
 						.getLaboratoryTestsByDateAndPatient(date, patient);
 				if ((tests != null) && (!tests.isEmpty())) {

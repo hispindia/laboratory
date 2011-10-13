@@ -37,6 +37,7 @@ import org.openmrs.ConceptNumeric;
 import org.openmrs.ConceptSet;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
+import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.model.LabTest;
 import org.openmrs.module.laboratory.LaboratoryService;

@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.openmrs.Concept;
+import org.openmrs.ConceptName;
 import org.openmrs.ConceptWord;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
@@ -169,8 +170,15 @@ public class LaboratoryUtil {
 				.getIdentifier());
 		tm.setPatientName(PatientUtil.getFullName(order.getPatient()));
 		tm.setGender(order.getPatient().getGender());
-		tm.setAge(order.getPatient().getAge());
+		tm.setAge(order.getPatient().getAge());	
 		tm.setTestName(order.getConcept().getName().getName());
+		if(order.getConcept().getShortNames()!=null){
+			if(!order.getConcept().getShortNames().isEmpty()){
+				for(ConceptName name:order.getConcept().getShortNames()){
+					tm.setTestName(name.getName());
+				}
+			}
+		} 
 		tm.setOrderId(order.getOrderId());
 
 		if (test != null) {

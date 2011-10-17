@@ -32,9 +32,9 @@
 				date			 : date,
 				patientId: patientId
 			}), 
-			success : function(data) {
+			success : function(data) {				
 				jQuery("#tests").html(data);
-				insertTestInfo(patientIdentifier);
+				insertTestInfo(patientId);
 				jQuery("#patientSearchResultSection").hide();
 				jQuery('#showPatientResult').show();
 			},
@@ -45,12 +45,13 @@
 	}
 	
 	// Insert test information
-	function insertTestInfo(patientIdentifier){		
+	function insertTestInfo(patientId){		
+		
 		jQuery.ajax({
 			type : "GET",
 			url : getContextPath() + "/module/laboratory/ajax/showTestInfo.htm",
 			data : ({
-				patientIdentifier	: patientIdentifier
+				patientId	: patientId
 			}),
 			success : function(data) {
 				jQuery("#patientReportTestInfo").html(data);	

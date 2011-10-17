@@ -37,7 +37,6 @@ import org.openmrs.ConceptNumeric;
 import org.openmrs.ConceptSet;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
-import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.model.LabTest;
 import org.openmrs.module.laboratory.LaboratoryService;
@@ -103,8 +102,6 @@ public class FormController {
 		List<ParameterModel> filteredParameters = new ArrayList<ParameterModel>();
 		for (ParameterModel parameter : parameters) {
 			if (parameter != null)
-				System.out.println(String.format("parameter %s %s",
-						parameter.getTitle(), parameter.getType()));
 			filteredParameters.add(parameter);
 		}
 		return filteredParameters;
@@ -123,15 +120,15 @@ public class FormController {
 	private ParameterModel generateParameterModel(Concept concept) {
 		ParameterModel parameter = new ParameterModel();
 		if (concept.getDatatype().getName().equalsIgnoreCase("Text")) {
-			parameter.setId(concept.getName().getName());
+			parameter.setId(concept.getName().getName().trim());
 			parameter.setType("text");
 		} else if (concept.getDatatype().getName().equalsIgnoreCase("Numeric")) {
-			parameter.setId(concept.getName().getName());
+			parameter.setId(concept.getName().getName().trim());
 			parameter.setType("text");
 			parameter.setUnit(getUnit(concept));		
 			parameter.setValidator("number");
 		} else if (concept.getDatatype().getName().equalsIgnoreCase("Coded")) {
-			parameter.setId(concept.getName().getName());
+			parameter.setId(concept.getName().getName().trim());
 			parameter.setType("select");
 			parameter.getOptionValues().add("");
 			parameter.getOptionLabels().add("");
@@ -148,7 +145,7 @@ public class FormController {
 			}
 		}
 		parameter.setValidator(parameter.getValidator() + " required");
-		parameter.setTitle(concept.getDatatype().getName());
+		parameter.setTitle(concept.getDatatype().getName());		
 		return parameter;
 	}
 	

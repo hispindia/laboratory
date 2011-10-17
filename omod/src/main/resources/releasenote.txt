@@ -1,3 +1,10 @@
+0.5.5
+- Fixed bug not showing parameter result on Edit Result page.
+- Fixed bug not showing patient information on Patient Report page.
+
+0.5.4
+- Changed the separator between low normal and hi normal of tests.
+
 0.5.3
 - Added patient search for SOLAN.
 

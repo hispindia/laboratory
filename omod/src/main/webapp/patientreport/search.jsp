@@ -25,7 +25,7 @@
 		<td>${test.unit}</td>
 		<td>
 			${test.lowNormal}
-			<c:if test="${not empty test.lowNormal and not empty test.hiNormal}">||</c:if>
+			<c:if test="${not empty test.lowNormal and not empty test.hiNormal}">//</c:if>
 			${test.hiNormal}
 		</td>
 	</tr>	

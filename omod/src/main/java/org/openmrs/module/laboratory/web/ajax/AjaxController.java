@@ -119,13 +119,12 @@ public class AjaxController {
 	 */
 	@RequestMapping(value = "/module/laboratory/ajax/showTestInfo.htm", method = RequestMethod.GET)
 	public String showTestInfo(
-			@RequestParam("patientIdentifier") String patientIdentifier,
+			@RequestParam("patientId") Integer patientId,
 			@RequestParam(value = "orderId", required = false) Integer orderId,
 			Model model) {
-		List<Patient> patients = Context.getPatientService().getPatients(
-				patientIdentifier);
-		if (!patients.isEmpty()) {
-			Patient patient = patients.get(0);
+		Patient patient = Context.getPatientService().getPatient(
+				patientId);
+		if (patient!=null) {
 			model.addAttribute("patient_identifier", patient
 					.getPatientIdentifier().getIdentifier());
 			model.addAttribute("patient_age", patient.getAge());

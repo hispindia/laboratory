@@ -42,7 +42,7 @@ import org.openmrs.Order;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.model.LabTest;
-import org.openmrs.module.hospitalcore.util.PatientUtil;
+import org.openmrs.module.hospitalcore.util.PatientUtils;
 import org.openmrs.module.laboratory.LaboratoryService;
 import org.openmrs.module.laboratory.util.LaboratoryConstants;
 import org.openmrs.module.laboratory.web.util.LaboratoryUtil;
@@ -129,7 +129,7 @@ public class AjaxController {
 					.getPatientIdentifier().getIdentifier());
 			model.addAttribute("patient_age", patient.getAge());
 			model.addAttribute("patient_gender", patient.getGender());
-			model.addAttribute("patient_name", PatientUtil.getFullName(patient));
+			model.addAttribute("patient_name", PatientUtils.getFullName(patient));
 		}
 		if (orderId != null) {
 			Order order = Context.getOrderService().getOrder(orderId);

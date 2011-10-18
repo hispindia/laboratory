@@ -42,7 +42,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.concept.TestTree;
 import org.openmrs.module.hospitalcore.model.Lab;
 import org.openmrs.module.hospitalcore.model.LabTest;
-import org.openmrs.module.hospitalcore.util.PatientUtil;
+import org.openmrs.module.hospitalcore.util.PatientUtils;
 import org.openmrs.module.laboratory.LaboratoryService;
 import org.springframework.ui.Model;
 
@@ -168,7 +168,7 @@ public class LaboratoryUtil {
 		tm.setStartDate(sdf.format(order.getStartDate()));
 		tm.setPatientIdentifier(order.getPatient().getPatientIdentifier()
 				.getIdentifier());
-		tm.setPatientName(PatientUtil.getFullName(order.getPatient()));
+		tm.setPatientName(PatientUtils.getFullName(order.getPatient()));
 		tm.setGender(order.getPatient().getGender());
 		tm.setAge(order.getPatient().getAge());	
 		tm.setTestName(order.getConcept().getName().getName());

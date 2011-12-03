@@ -127,7 +127,7 @@
 				}),
 				success : function(data) {
 					
-					if (data == 'success') {						
+					if (data.indexOf('success')>=0) {						
 						jQuery.ajax({
 							type : "POST",
 							url : getContextPath() + "/module/laboratory/rescheduleTest.form",
@@ -136,7 +136,7 @@
 								rescheduledDate : rescheduledDate
 							}),
 							success : function(data) {
-								if (data == 'success') {
+								if (data.indexOf('success')>=0) {
 									getTests();
 								} else {
 									alert(data);
@@ -167,7 +167,7 @@
 				testId : testId
 			}),
 			success : function(data) {
-				if (data == 'success') {
+				if (data.indexOf('success')>=0) {
 					getTests();
 				} else {
 					
@@ -219,7 +219,7 @@
 		if(validationResult){
 			jQuery("#contentForm" + testId).ajaxSubmit({
 				success: function (responseText, statusText, xhr){					
-					if(responseText.indexOf('success')>0){						
+					if(responseText.indexOf('success')>=0){						
 						getTests();
 						completeTest(testId);						
 					}

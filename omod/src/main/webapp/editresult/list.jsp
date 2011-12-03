@@ -120,7 +120,7 @@
 		if(validationResult){
 			jQuery("#contentForm" + testId).ajaxSubmit({
 				success: function (responseText, statusText, xhr){					
-					if(responseText.indexOf('success')>0){						
+					if(responseText.indexOf('success')>=0){						
 						getTests();
 						completeTest(testId);						
 					}

@@ -130,7 +130,7 @@
 				testId : testId
 			}),
 			success : function(data) {
-				if (data == 'success') {
+				if (data.indexOf('success')>=0) {
 					jQuery("#acceptBox_" + orderId).html(
 							"<a href='#' onClick='acceptTest(" + orderId
 									+ ");'>Accept</a>");
@@ -160,7 +160,7 @@
 			}),
 			success : function(data) {
 				
-				if (data == 'success') {						
+				if (data.indexOf('success')>=0) {						
 					jQuery.ajax({
 						type : "POST",
 						url : getContextPath() + "/module/laboratory/rescheduleTest.form",
@@ -169,7 +169,7 @@
 							rescheduledDate : rescheduledDate
 						}),
 						success : function(data) {
-							if (data == 'success') {
+							if (data.indexOf('success')>=0) {
 								getTests();
 							} else {
 								alert(data);

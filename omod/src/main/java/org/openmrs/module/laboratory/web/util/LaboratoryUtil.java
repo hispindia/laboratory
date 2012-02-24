@@ -27,13 +27,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
 import org.openmrs.ConceptName;
+import org.openmrs.ConceptNumeric;
+import org.openmrs.ConceptSet;
 import org.openmrs.ConceptWord;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
@@ -277,10 +281,8 @@ public class LaboratoryUtil {
 
 	private static String getObsValue(Obs obs) {
 		Concept concept = obs.getConcept();
-		if (concept.getDatatype().getName().equalsIgnoreCase("Text")) {
+		if (concept.getDatatype().getName().equalsIgnoreCase("Text") || concept.getDatatype().getName().equalsIgnoreCase("Numeric")) {
 			return obs.getValueText();
-		} else if (concept.getDatatype().getName().equalsIgnoreCase("Numeric")) {
-			return obs.getValueNumeric().toString();
 		} else if (concept.getDatatype().getName().equalsIgnoreCase("Coded")) {
 			return obs.getValueCoded().getName().getName();
 		}
@@ -302,5 +304,72 @@ public class LaboratoryUtil {
 			conceptNames.put(searchConcept, concept.getName().getName());
 			return conceptNames.get(searchConcept);
 		}
+	}
+	
+	/**
+	 * Generate parameter models
+	 * @param parameters
+	 * @param concept
+	 */
+	public static void generateParameterModels(List<ParameterModel> parameters,
+			Concept concept) {
+		if (concept.getConceptClass().getName().equalsIgnoreCase("LabSet")) {
+			List<Concept> concepts = getParameterConcepts(concept);
+			for (Concept c : concepts) {
+				generateParameterModels(parameters, c);
+			}
+		} else {
+			ParameterModel parameter = generateParameterModel(concept);
+			parameters.add(parameter);
+		}
+	}
+	
+
+
+	private static List<Concept> getParameterConcepts(Concept concept) {
+
+		List<Concept> concepts = new ArrayList<Concept>();
+		for (ConceptSet cs : concept.getConceptSets()) {
+			Concept c = cs.getConcept();
+			concepts.add(c);
+		}
+		return concepts;
+	}
+
+	private static ParameterModel generateParameterModel(Concept concept) {
+		ParameterModel parameter = new ParameterModel();
+		if (concept.getDatatype().getName().equalsIgnoreCase("Text")) {
+			parameter.setId(concept.getName().getName().trim());
+			parameter.setType("text");
+		} else if (concept.getDatatype().getName().equalsIgnoreCase("Numeric")) {
+			parameter.setId(concept.getName().getName().trim());
+			parameter.setType("text");
+			parameter.setUnit(getUnit(concept));			
+		} else if (concept.getDatatype().getName().equalsIgnoreCase("Coded")) {
+			parameter.setId(concept.getName().getName().trim());
+			parameter.setType("select");
+			parameter.getOptionValues().add("");
+			parameter.getOptionLabels().add("");
+			Set<Concept> options = new HashSet<Concept>();
+
+			for (ConceptAnswer ca : concept.getAnswers()) {
+				Concept c = ca.getAnswerConcept();
+				options.add(c);
+			}
+
+			for (Concept option : options) {
+				parameter.getOptionValues().add(option.getName().getName());
+				parameter.getOptionLabels().add(option.getName().getName());
+			}
+		}
+		parameter.setValidator(parameter.getValidator() + " required");
+		parameter.setTitle(concept.getDatatype().getName());
+		return parameter;
+	}
+
+	private static String getUnit(Concept concept) {
+		ConceptNumeric cn = Context.getConceptService().getConceptNumeric(
+				concept.getConceptId());
+		return cn.getUnits();
 	}
 }

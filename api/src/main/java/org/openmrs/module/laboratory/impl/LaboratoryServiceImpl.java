@@ -313,4 +313,8 @@ public class LaboratoryServiceImpl extends BaseOpenmrsService implements
 	public LabTest getLaboratoryTest(Encounter encounter) {
 		return dao.getLaboratoryTest(encounter);
 	}
+	
+	public List<LabTest> getAllTest(){
+		return dao.getAllTest();
+	}
 }

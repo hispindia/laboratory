@@ -80,7 +80,7 @@ public class ParameterModel implements Comparable<ParameterModel> {
 
 	public void setUnit(String unit) {
 		this.unit = unit;
-	}	
+	}
 
 	public String getValidator() {
 		return validator;

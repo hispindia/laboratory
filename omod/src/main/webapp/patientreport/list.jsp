@@ -65,12 +65,14 @@
 	
 	// Insert test information
 	function insertTestInfo(patientId){		
+		var date = jQuery("#date").val();
 		
 		jQuery.ajax({
 			type : "GET",
 			url : getContextPath() + "/module/laboratory/ajax/showTestInfo.htm",
 			data : ({
-				patientId	: patientId
+				patientId	: patientId,
+				orderDate   : date
 			}),
 			success : function(data) {
 				jQuery("#patientReportTestInfo").html(data);	
@@ -90,6 +92,9 @@
 	}
 	
 	function printPatientReport(){
+		jQuery("#patientReportPrintArea table").each(function(index, item){
+			jQuery(item).attr("class", "wltable");
+		});
 		jQuery("#patientReportPrintArea").printArea({
 			mode : "popup",
 			popClose : true

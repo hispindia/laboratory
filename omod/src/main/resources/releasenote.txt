@@ -1,3 +1,8 @@
+0.5.6
+- Updated Patient Report printout.
+- Fixed bug not show tests correctly.
+- Fixed bug not allow users to enter time for test results.
+
 0.5.5
 - Fixed bug not showing parameter result on Edit Result page.
 - Fixed bug not showing patient information on Patient Report page.

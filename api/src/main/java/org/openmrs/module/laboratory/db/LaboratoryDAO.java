@@ -210,4 +210,6 @@ public interface LaboratoryDAO {
 	 * @return
 	 */
 	public LabTest getLaboratoryTest(Encounter encounter);
+	
+	public List<LabTest> getAllTest();
 }

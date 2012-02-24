@@ -23,10 +23,10 @@
 <table class="tablesorter" style="width:100%">
 	<thead>
 		<tr>		
-			<th>Test</th>
-			<th>Result</th>
-			<th>Unit</th>
-			<th>Reference range</th> 
+			<th><center>Test</center></th>
+			<th><center>Result</center></th>
+			<th><center>Units</center></th>
+			<th><center>Reference Range</center></th> 
 		</tr>
 	</thead>	
 	<tbody>
@@ -55,12 +55,11 @@
 <div id="patientReportPrintArea" style="display: none;">
 	<style>
 		table.wltable {
-			margin-left: auto;
-			margin-right: auto;
-			font-family: Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif;
+			
+			font-family: Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif;			
 			font-style: normal;
 			font-size: 10px;
-			border: 1px solid;
+			
 		}
 
 		table.wltable th {
@@ -68,21 +67,21 @@
 		}
 
 		table.wltable td {
-			padding: 5px 5px 0px 5px;
+			padding: 0px 5px 0px 5px;
 		}
 
 		table.wltable .right {
 			border-right: 1px solid;
 		}
 	</style>
-	<div id="printAreaTestInfo"></div>
-	<table class="wltable" cellspacing="0" style="width:100%">
+	<div id="printAreaTestInfo"></div><br/><br/>
+	<table class="wltable" cellspacing="0" style="width:100%; border: 1px solid; margin-left: auto; margin-right: auto;">
 		<thead>
-			<tr>		
-				<th class="right">Test</th>
-				<th class="right">Result</th>
-				<th class="right">Unit</th>
-				<th>Reference range</th>
+			<tr>
+				<th class="right"><center>Test</center></th>
+				<th class="right"><center>Result</center></th>
+				<th class="right"><center>Units</center></th>
+				<th><center>Reference Range</center></th> 
 			</tr>
 		</thead>	
 		<tbody>
@@ -106,4 +105,5 @@
 	</c:forEach>
 		</tbody>
 	</table>
+	<div style="text-align: right; margin-top: 30px; margin-right: 150px;">Signature</div>
 </div>

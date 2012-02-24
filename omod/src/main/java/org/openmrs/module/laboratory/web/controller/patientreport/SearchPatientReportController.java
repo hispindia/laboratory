@@ -65,16 +65,15 @@ public class SearchPatientReportController {
 		try {
 			date = sdf.parse(dateStr);
 			Patient patient = Context.getPatientService().getPatient(patientId);
-			if (patient!=null) {				
-				
-				List<LabTest> tests = ls
-						.getLaboratoryTestsByDateAndPatient(date, patient);
+			if (patient != null) {
+
+				List<LabTest> tests = ls.getLaboratoryTestsByDateAndPatient(
+						date, patient);
 				if ((tests != null) && (!tests.isEmpty())) {
 					Map<Concept, Set<Concept>> testTreeMap = (Map<Concept, Set<Concept>>) request
 							.getSession().getAttribute(
 									LaboratoryConstants.SESSION_TEST_TREE_MAP);
-					List<TestResultModel> trms = renderTests(tests,
-							testTreeMap);
+					List<TestResultModel> trms = renderTests(tests, testTreeMap);
 					trms = formatTestResult(trms);
 					model.addAttribute("tests", trms);
 				}
@@ -97,11 +96,13 @@ public class SearchPatientReportController {
 					TestResultModel trm = new TestResultModel();
 					Concept investigation = getInvestigationByTest(test,
 							testTreeMap);
-					trm.setInvestigation(LaboratoryUtil.getConceptName(investigation));
+					trm.setInvestigation(LaboratoryUtil
+							.getConceptName(investigation));
 					trm.setSet(test.getConcept().getName().getName());
-					Concept concept = Context.getConceptService().getConcept(obs.getConcept().getConceptId());
+					Concept concept = Context.getConceptService().getConcept(
+							obs.getConcept().getConceptId());
 					trm.setTest(concept.getName().getName());
-					trm.setConcept(test.getConcept());					
+					trm.setConcept(test.getConcept());
 					setTestResultModelValue(obs, trm);
 					trms.add(trm);
 				}
@@ -119,22 +120,27 @@ public class SearchPatientReportController {
 		}
 		return null;
 	}
-	
+
 	private void setTestResultModelValue(Obs obs, TestResultModel trm) {
-		Concept concept = Context.getConceptService().getConcept(obs.getConcept().getConceptId());
+		Concept concept = Context.getConceptService().getConcept(
+				obs.getConcept().getConceptId());
 		trm.setTest(concept.getName().getName());
 		if (concept != null) {
 			String datatype = concept.getDatatype().getName();
 			if (datatype.equalsIgnoreCase("Text")) {
 				trm.setValue(obs.getValueText());
 			} else if (datatype.equalsIgnoreCase("Numeric")) {
-				trm.setValue(obs.getValueNumeric().toString());
+				if(obs.getValueText()!=null){
+					trm.setValue(obs.getValueText().toString());	
+				} else {
+					trm.setValue(obs.getValueNumeric().toString());					
+				}
 				ConceptNumeric cn = Context.getConceptService()
 						.getConceptNumeric(concept.getConceptId());
 				trm.setUnit(cn.getUnits());
-				if(cn.getLowNormal()!=null)
+				if (cn.getLowNormal() != null)
 					trm.setLowNormal(cn.getLowNormal().toString());
-				if(cn.getHiNormal()!=null)
+				if (cn.getHiNormal() != null)
 					trm.setHiNormal(cn.getHiNormal().toString());
 			} else if (datatype.equalsIgnoreCase("Coded")) {
 				trm.setValue(obs.getValueCoded().getName().getName());

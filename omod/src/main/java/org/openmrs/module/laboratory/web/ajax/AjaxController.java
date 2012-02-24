@@ -113,14 +113,13 @@ public class AjaxController {
 	 * Show patient/test information when showing on patient report page
 	 * 
 	 * @param patientIdentifier
-	 * @param orderId
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/module/laboratory/ajax/showTestInfo.htm", method = RequestMethod.GET)
 	public String showTestInfo(
-			@RequestParam("patientId") Integer patientId,
-			@RequestParam(value = "orderId", required = false) Integer orderId,
+			@RequestParam("patientId") Integer patientId,			
+			@RequestParam(value = "orderDate", required = false) String orderDate,
 			Model model) {
 		Patient patient = Context.getPatientService().getPatient(
 				patientId);
@@ -130,15 +129,7 @@ public class AjaxController {
 			model.addAttribute("patient_age", patient.getAge());
 			model.addAttribute("patient_gender", patient.getGender());
 			model.addAttribute("patient_name", PatientUtils.getFullName(patient));
-		}
-		if (orderId != null) {
-			Order order = Context.getOrderService().getOrder(orderId);
-			if (order != null) {
-				model.addAttribute("test_orderDate",
-						LaboratoryUtil.formatDate(order.getDateCreated()));
-				model.addAttribute("test_name", order.getConcept().getName()
-						.getName());
-			}
+			model.addAttribute("test_orderDate", orderDate);
 		}
 		return "/module/laboratory/ajax/showTestInfo";
 	}

@@ -232,4 +232,6 @@ public interface LaboratoryService extends OpenmrsService {
 	 * @return
 	 */
 	public LabTest getLaboratoryTest(Encounter encounter);
+	
+	public List<LabTest> getAllTest();
 }

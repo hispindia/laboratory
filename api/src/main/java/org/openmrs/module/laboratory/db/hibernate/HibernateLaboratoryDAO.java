@@ -288,4 +288,11 @@ public class HibernateLaboratoryDAO implements LaboratoryDAO {
 		criteria.add(Restrictions.eq("encounter", encounter));
 		return (LabTest) criteria.uniqueResult();
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<LabTest> getAllTest() {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				LabTest.class);
+		return criteria.list();
+	}
 }

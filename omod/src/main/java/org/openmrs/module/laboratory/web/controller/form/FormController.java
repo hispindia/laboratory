@@ -23,18 +23,12 @@ package org.openmrs.module.laboratory.web.controller.form;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.openmrs.Concept;
-import org.openmrs.ConceptAnswer;
-import org.openmrs.ConceptNumeric;
-import org.openmrs.ConceptSet;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.api.context.Context;
@@ -66,7 +60,8 @@ public class FormController {
 			@RequestParam(value = "conceptId") Integer conceptId, Model model) {
 
 		Concept concept = Context.getConceptService().getConcept(conceptId);
-		List<ParameterModel> parameters = generateParameterModels(concept);
+		List<ParameterModel> parameters = new ArrayList<ParameterModel>();
+		LaboratoryUtil.generateParameterModels(parameters, concept);
 
 		Encounter encounter = Context.getEncounterService().getEncounter(
 				encounterId);
@@ -80,80 +75,7 @@ public class FormController {
 	/*
 	 * Generate parameter list
 	 */
-	private List<ParameterModel> generateParameterModels(Concept concept) {
-		List<ParameterModel> parameters = new ArrayList<ParameterModel>();
-		if (concept.getConceptClass().getName().equalsIgnoreCase("LabSet")) {
-			List<Concept> concepts = getParameterConcepts(concept);
-			for (Concept c : concepts) {
-				ParameterModel parameter = generateParameterModel(c);
-				if (!StringUtils.isBlank(parameter.getId())) {
-					parameters.add(parameter);
-				}
-			}
-		} else {
-			ParameterModel parameter = generateParameterModel(concept);
-			parameters.add(parameter);
-		}
-		return filterParameters(parameters);
-	}
-
-	private List<ParameterModel> filterParameters(
-			List<ParameterModel> parameters) {
-		List<ParameterModel> filteredParameters = new ArrayList<ParameterModel>();
-		for (ParameterModel parameter : parameters) {
-			if (parameter != null)
-			filteredParameters.add(parameter);
-		}
-		return filteredParameters;
-	}
-
-	private List<Concept> getParameterConcepts(Concept concept) {
-
-		List<Concept> concepts = new ArrayList<Concept>();
-		for (ConceptSet cs : concept.getConceptSets()) {
-			Concept c = cs.getConcept();
-			concepts.add(c);
-		}
-		return concepts;
-	}
-
-	private ParameterModel generateParameterModel(Concept concept) {
-		ParameterModel parameter = new ParameterModel();
-		if (concept.getDatatype().getName().equalsIgnoreCase("Text")) {
-			parameter.setId(concept.getName().getName().trim());
-			parameter.setType("text");
-		} else if (concept.getDatatype().getName().equalsIgnoreCase("Numeric")) {
-			parameter.setId(concept.getName().getName().trim());
-			parameter.setType("text");
-			parameter.setUnit(getUnit(concept));		
-			parameter.setValidator("number");
-		} else if (concept.getDatatype().getName().equalsIgnoreCase("Coded")) {
-			parameter.setId(concept.getName().getName().trim());
-			parameter.setType("select");
-			parameter.getOptionValues().add("");
-			parameter.getOptionLabels().add("");
-			Set<Concept> options = new HashSet<Concept>();
-
-			for (ConceptAnswer ca : concept.getAnswers()) {
-				Concept c = ca.getAnswerConcept();
-				options.add(c);
-			}
-
-			for (Concept option : options) {
-				parameter.getOptionValues().add(option.getName().getName());
-				parameter.getOptionLabels().add(option.getName().getName());
-			}
-		}
-		parameter.setValidator(parameter.getValidator() + " required");
-		parameter.setTitle(concept.getDatatype().getName());		
-		return parameter;
-	}
 	
-	private String getUnit(Concept concept){
-		ConceptNumeric cn = Context.getConceptService()
-		.getConceptNumeric(concept.getConceptId());
-		return cn.getUnits();
-	}
 
 	/**
 	 * Save form values into an existing encounter
@@ -169,13 +91,15 @@ public class FormController {
 		Map<String, String> parameters = buildParameterList(request);
 		Encounter encounter = Context.getEncounterService().getEncounter(
 				encounterId);
-		
-		LabTest test = Context.getService(LaboratoryService.class).getLaboratoryTest(encounter);
-		
+
+		LabTest test = Context.getService(LaboratoryService.class)
+				.getLaboratoryTest(encounter);
+
 		if (encounter != null) {
 			for (String key : parameters.keySet()) {
 				Concept concept = LaboratoryUtil.searchConcept(key);
-				Obs obs = insertValue(encounter, concept, parameters.get(key), test);
+				Obs obs = insertValue(encounter, concept, parameters.get(key),
+						test);
 				if (obs.getId() == null)
 					encounter.addObs(obs);
 			}
@@ -203,15 +127,14 @@ public class FormController {
 		return parameters;
 	}
 
-	private Obs insertValue(Encounter encounter, Concept concept, String value, LabTest test) {
+	private Obs insertValue(Encounter encounter, Concept concept, String value,
+			LabTest test) {
 
 		Obs obs = getObs(encounter, concept);
 		obs.setConcept(concept);
 		obs.setOrder(test.getOrder());
-		if (concept.getDatatype().getName().equalsIgnoreCase("Text")) {
+		if (concept.getDatatype().getName().equalsIgnoreCase("Text") || concept.getDatatype().getName().equalsIgnoreCase("Numeric")) {
 			obs.setValueText(value);
-		} else if (concept.getDatatype().getName().equalsIgnoreCase("Numeric")) {
-			obs.setValueNumeric(new Double(value));
 		} else if (concept.getDatatype().getName().equalsIgnoreCase("Coded")) {
 			Concept answerConcept = LaboratoryUtil.searchConcept(value);
 			obs.setValueCoded(answerConcept);

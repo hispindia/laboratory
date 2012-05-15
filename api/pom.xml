@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.openmrs.module</groupId>
 		<artifactId>laboratory</artifactId>
-		<version>0.5.8</version>
+		<version>0.5.9-SNAPSHOT</version>
 	</parent>
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>laboratory-api</artifactId>

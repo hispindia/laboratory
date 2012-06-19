@@ -129,7 +129,6 @@ public class TestResultModel implements Comparable<TestResultModel> {
 		this.testId = testId;
 	}
 
-	@Override
 	public int compareTo(TestResultModel o) {
 		if (o == null)
 			return 1;

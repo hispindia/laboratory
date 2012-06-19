@@ -27,13 +27,16 @@
 
 	testNo = 0;
 	editingSampleId = false;	
-
+	// 19/06/2012 kesavulu: #76 After rescheduling a Patient , we should return to the same page instead we go back to page 1
+	currentPage = 1;
     jQuery(document).ready(function() {
 		jQuery('#date').datepicker({yearRange:'c-30:c+30', dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
     });
 	
 	// get all tests
 	function getTests(currentPage){
+		// 19/06/2012 kesavulu: #76 After rescheduling a Patient , we should return to the same page instead we go back to page 1
+		this.currentPage = currentPage;
 		var date = jQuery("#date").val();
 		var phrase = jQuery("#phrase").val();
 		var investigation = jQuery("#investigation").val();
@@ -170,7 +173,8 @@
 						}),
 						success : function(data) {
 							if (data.indexOf('success')>=0) {
-								getTests();
+								// 19/06/2012 kesavulu: #76 After rescheduling a Patient , we should return to the same page instead we go back to page 1
+								getTests(currentPage);
 							} else {
 								alert(data);
 							}

@@ -77,7 +77,7 @@ public class AjaxController {
 					model.addAttribute("status", "success");
 				} else {
 					model.addAttribute("status", "fail");
-					if (acceptedTestId == LaboratoryConstants.ACCEPT_TEST_RETURN_ERROR_EXISTING_SAMPLEID) {
+					if (acceptedTestId.equals(LaboratoryConstants.ACCEPT_TEST_RETURN_ERROR_EXISTING_SAMPLEID)) {
 						model.addAttribute("error", "Existing sample id found");
 					} else if (acceptedTestId == LaboratoryConstants.ACCEPT_TEST_RETURN_ERROR_EXISTING_TEST) {
 						model.addAttribute("error",

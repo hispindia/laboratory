@@ -20,10 +20,15 @@
 
 package org.openmrs.module.laboratory.web.util;
 
-public class TestModel {
+import java.util.Comparator;
+
+import org.openmrs.module.laboratory.web.util.TestModel;
+
+//ghanshyam 04/07/2012 New Requirement #277
+public class TestModel implements Comparator<TestModel>, Comparable<TestModel>{
 
 	private String startDate;
-	private String patientIdentifier;
+	private String patientIdentifier; 
 	private String patientName;
 	private String gender;
 	private Integer age;
@@ -36,6 +41,10 @@ public class TestModel {
 	private Integer encounterId;
 	private Integer conceptId;
 	private String sampleId;
+	
+	//ghanshyam 04/07/2012 New Requirement #277
+	public TestModel(){
+	   }
 
 	public String getStartDate() {
 		return startDate;
@@ -147,5 +156,17 @@ public class TestModel {
 
 	public void setSampleId(String sampleId) {
 		this.sampleId = sampleId;
+	}
+	
+	//ghanshyam 04/07/2012 New Requirement #277
+	
+	 // Overriding the compareTo method
+	   public int compareTo(TestModel t){
+	      return (this.patientName).compareTo(t.patientName);
+	   }
+	   
+	   // Overriding the compare method
+	public int compare(TestModel t, TestModel t1) {
+		return 0;
 	}
 }

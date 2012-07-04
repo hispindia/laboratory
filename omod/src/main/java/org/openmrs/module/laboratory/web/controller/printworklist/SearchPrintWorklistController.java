@@ -22,6 +22,7 @@ package org.openmrs.module.laboratory.web.controller.printworklist;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -75,6 +76,8 @@ public class SearchPrintWorklistController {
 			}
 			List<LabTest> laboratoryTests = ls.getAllLaboratoryTestsByDate(date, phrase, allowableTests);
 			List<TestModel> tests = LaboratoryUtil.generateModelsFromTests(laboratoryTests, testTreeMap);
+			//ghanshyam 04/07/2012 New Requirement #277
+			Collections.sort(tests);
 			model.addAttribute("tests", tests);
 			model.addAttribute("testNo", tests.size());			
 		} catch (ParseException e) {

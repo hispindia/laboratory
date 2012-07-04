@@ -1,3 +1,13 @@
+0.5.9
+- Fixed high priority jenkins bugs
+- Resolved issues
+	Bug #95: queue in laboratory
+	Bug #231: [0.5.9-SNAPSHOT] [SOLAN] Unable to view value in the Edit result
+	Bug #232: [0.5.9-SNAPSHOT] [SOLAN] Error with patient report
+	Bug #296: Mohali- patient report
+	Support #75: Queue
+	Support #76: Rescedule
+
 0.5.6
 - Updated Patient Report printout.
 - Fixed bug not show tests correctly.

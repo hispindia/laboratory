@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.openmrs.module</groupId>
 		<artifactId>laboratory</artifactId>
-		<version>0.5.9</version>
+		<version>0.5.10-SNAPSHOT</version>
 	</parent>
 	<artifactId>laboratory-omod</artifactId>
 	<packaging>omod</packaging>

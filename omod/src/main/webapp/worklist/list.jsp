@@ -96,16 +96,15 @@
 			message: "fine"
 		};
 		
+		<!-- ghanshyam 07/07/2012 New Requirement #307 Generate Consolidated Work List in laboratory module-->
+		
 		if(investigation>0){			
 			validation.status = true;
 		} else {
 			
 			if(GLOBAL.findAllInvestigation){
 				validation.status = true;
-			} else {
-				validation.status = false;
-				validation.message = "Please select an investigation!";
-			}
+			} 
 		}		
 		
 		return validation;
@@ -240,7 +239,8 @@
 	<input id="phrase"/>
 	Investigation:
 	<select name="investigation" id="investigation">
-		<option value="0">Select an investigation</option>
+	<!-- ghanshyam 07/07/2012 New Requirement #307 Generate Consolidated Work List in laboratory module-->
+		<option value="0">Consolidated List</option>
 		<c:forEach var="investigation" items="${investigations}">
 			<option value="${investigation.id}">${investigation.name.name}</option>
 		</c:forEach>	

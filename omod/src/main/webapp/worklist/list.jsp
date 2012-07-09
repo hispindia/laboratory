@@ -239,7 +239,7 @@
 	<input id="phrase"/>
 	Investigation:
 	<select name="investigation" id="investigation">
-	<!-- ghanshyam 07/07/2012 New Requirement #307 Generate Consolidated Work List in laboratory module-->
+	<%-- ghanshyam 07/07/2012 New Requirement #307 Generate Consolidated Work List in laboratory module --%>
 		<option value="0">Consolidated List</option>
 		<c:forEach var="investigation" items="${investigations}">
 			<option value="${investigation.id}">${investigation.name.name}</option>

@@ -35,7 +35,6 @@ import java.util.Set;
 
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
-import org.openmrs.ConceptName;
 import org.openmrs.ConceptNumeric;
 import org.openmrs.ConceptSet;
 import org.openmrs.ConceptWord;
@@ -87,6 +86,134 @@ public class LaboratoryUtil {
 			models.add(tm);
 		}
 		return models;
+	}
+
+	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in
+	// Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
+	/**
+	 * Generate list of test models for Print WorkList using tests
+	 * 
+	 * @param tests
+	 * @return
+	 */
+
+	public static List<TestModel> generateModelsForPrintWorkListFromTests(
+			List<LabTest> tests, Map<Concept, Set<Concept>> testTreeMap) {
+
+		List<TestModel> models = new ArrayList<TestModel>();
+		for (LabTest test : tests) {
+			List<TestModel> tm = generateModelForAllTestField(test, testTreeMap);
+			models.addAll(tm);
+		}
+		return models;
+	}
+
+	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
+	private static List<TestModel> generateModelForAllTestField(LabTest test,
+			Map<Concept, Set<Concept>> testTreeMap) {
+		Order order = test.getOrder();
+		List<TestModel> listTm = new ArrayList<TestModel>();
+		boolean flag = false;
+		Encounter encounter = test.getEncounter();
+		if (encounter != null) {
+			for (ConceptSet testFields : test.getOrder().getConcept()
+					.getConceptSets()) {
+				for (Obs obs : encounter.getAllObs()) {
+					if (obs.getConcept().equals(testFields.getConcept())) {
+						flag = true;
+					}
+				}
+				if (!flag) {
+					flag = false;
+
+					TestModel tm = new TestModel();
+					tm.setStartDate(sdf.format(order.getStartDate()));
+					tm.setPatientIdentifier(order.getPatient()
+							.getPatientIdentifier().getIdentifier());
+					tm.setPatientName(PatientUtils.getFullName(order
+							.getPatient()));
+					tm.setGender(order.getPatient().getGender());
+					tm.setAge(order.getPatient().getAge());
+					tm.setTest(order.getConcept());
+					setTestResultModelValue(null, tm);
+					tm.setTestName(testFields.getConcept());
+					tm.setOrderId(order.getOrderId());
+
+					if (test != null) {
+						tm.setStatus(test.getStatus());
+						tm.setTestId(test.getLabTestId());
+						tm.setAcceptedDate(sdf.format(test.getAcceptDate()));
+						tm.setConceptId(test.getConcept().getConceptId());
+						tm.setSampleId(test.getSampleNumber());
+						if (test.getEncounter() != null)
+							tm.setEncounterId(test.getEncounter()
+									.getEncounterId());
+					} else {
+						tm.setStatus(null);
+					}
+
+					// get investigation from test tree map
+					if (testTreeMap != null) {
+						tm.setInvestigation(getInvestigationName(
+								order.getConcept(), testTreeMap));
+					}
+					if (test.getEncounter() != null) {
+						for (Obs obs : encounter.getAllObs()) {
+							TestModel trm = new TestModel();
+							setTestResultModelValue(obs, trm);
+							tm.setValue(trm.getValue());
+						}
+					}
+
+					listTm.add(tm);
+				}
+
+			}
+
+			for (Obs obs : encounter.getAllObs()) {
+
+				TestModel tm = new TestModel();
+				tm.setStartDate(sdf.format(order.getStartDate()));
+				tm.setPatientIdentifier(order.getPatient()
+						.getPatientIdentifier().getIdentifier());
+				tm.setPatientName(PatientUtils.getFullName(order.getPatient()));
+				tm.setGender(order.getPatient().getGender());
+				tm.setAge(order.getPatient().getAge());
+				tm.setTest(order.getConcept());
+				setTestResultModelValue(obs, tm);
+				tm.setTestName(obs.getConcept());
+				tm.setOrderId(order.getOrderId());
+
+				if (test != null) {
+					tm.setStatus(test.getStatus());
+					tm.setTestId(test.getLabTestId());
+					tm.setAcceptedDate(sdf.format(test.getAcceptDate()));
+					tm.setConceptId(test.getConcept().getConceptId());
+					tm.setSampleId(test.getSampleNumber());
+					if (test.getEncounter() != null)
+						tm.setEncounterId(test.getEncounter().getEncounterId());
+				} else {
+					tm.setStatus(null);
+				}
+
+				// get investigation from test tree map
+				if (testTreeMap != null) {
+					tm.setInvestigation(getInvestigationName(
+							order.getConcept(), testTreeMap));
+				}
+				if (test.getEncounter() != null) {
+
+					TestModel trm = new TestModel();
+					setTestResultModelValue(obs, trm);
+					tm.setValue(trm.getValue());
+
+				}
+				listTm.add(tm);
+
+			}
+
+		}
+		return listTm;
 	}
 
 	/**
@@ -174,15 +301,8 @@ public class LaboratoryUtil {
 				.getIdentifier());
 		tm.setPatientName(PatientUtils.getFullName(order.getPatient()));
 		tm.setGender(order.getPatient().getGender());
-		tm.setAge(order.getPatient().getAge());	
-		tm.setTestName(order.getConcept().getName().getName());
-		if(order.getConcept().getShortNames()!=null){
-			if(!order.getConcept().getShortNames().isEmpty()){
-				for(ConceptName name:order.getConcept().getShortNames()){
-					tm.setTestName(name.getName());
-				}
-			}
-		} 
+		tm.setAge(order.getPatient().getAge());
+		tm.setTest(order.getConcept());
 		tm.setOrderId(order.getOrderId());
 
 		if (test != null) {
@@ -191,7 +311,7 @@ public class LaboratoryUtil {
 			tm.setAcceptedDate(sdf.format(test.getAcceptDate()));
 			tm.setConceptId(test.getConcept().getConceptId());
 			tm.setSampleId(test.getSampleNumber());
-			if(test.getEncounter()!=null)
+			if (test.getEncounter() != null)
 				tm.setEncounterId(test.getEncounter().getEncounterId());
 		} else {
 			tm.setStatus(null);
@@ -199,13 +319,38 @@ public class LaboratoryUtil {
 
 		// get investigation from test tree map
 		if (testTreeMap != null) {
-			tm.setInvestigation(getInvestigationName(order.getConcept(), testTreeMap));
+			tm.setInvestigation(getInvestigationName(order.getConcept(),
+					testTreeMap));
 		}
 
 		return tm;
 	}
-	
-	public static String getInvestigationName(Concept concept, Map<Concept, Set<Concept>> testTreeMap){
+
+	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
+	private static void setTestResultModelValue(Obs obs, TestModel trm) {
+		if (obs != null) {
+			Concept concept = Context.getConceptService().getConcept(
+					obs.getConcept().getConceptId());
+			// trm.setTestName(concept.getName().getName());
+			if (concept != null) {
+				String datatype = concept.getDatatype().getName();
+				if (datatype.equalsIgnoreCase("Text")) {
+					trm.setValue(obs.getValueText());
+				} else if (datatype.equalsIgnoreCase("Numeric")) {
+					if (obs.getValueText() != null) {
+						trm.setValue(obs.getValueText().toString());
+					} else {
+						trm.setValue(obs.getValueNumeric().toString());
+					}
+				} else if (datatype.equalsIgnoreCase("Coded")) {
+					trm.setValue(obs.getValueCoded().getName().getName());
+				}
+			}
+		}
+	}
+
+	public static String getInvestigationName(Concept concept,
+			Map<Concept, Set<Concept>> testTreeMap) {
 		for (Concept investigationConcept : testTreeMap.keySet()) {
 			Set<Concept> set = testTreeMap.get(investigationConcept);
 			if (set.contains(concept)) {
@@ -213,16 +358,16 @@ public class LaboratoryUtil {
 					return conceptNames.get(investigationConcept);
 				} else {
 					Concept newInvestigationConcept = Context
-							.getConceptService()
-							.getConcept(investigationConcept.getConceptId());
-					conceptNames.put(newInvestigationConcept, newInvestigationConcept.getName().getName());
+							.getConceptService().getConcept(
+									investigationConcept.getConceptId());
+					conceptNames.put(newInvestigationConcept,
+							newInvestigationConcept.getName().getName());
 					return conceptNames.get(newInvestigationConcept);
 				}
 			}
 		}
 		return null;
 	}
-	
 
 	/**
 	 * Search for concept using name
@@ -281,14 +426,15 @@ public class LaboratoryUtil {
 
 	private static String getObsValue(Obs obs) {
 		Concept concept = obs.getConcept();
-		if (concept.getDatatype().getName().equalsIgnoreCase("Text") || concept.getDatatype().getName().equalsIgnoreCase("Numeric")) {
+		if (concept.getDatatype().getName().equalsIgnoreCase("Text")
+				|| concept.getDatatype().getName().equalsIgnoreCase("Numeric")) {
 			return obs.getValueText();
 		} else if (concept.getDatatype().getName().equalsIgnoreCase("Coded")) {
 			return obs.getValueCoded().getName().getName();
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Get name of a detached by hibernate session concept
 	 * 
@@ -305,9 +451,10 @@ public class LaboratoryUtil {
 			return conceptNames.get(searchConcept);
 		}
 	}
-	
+
 	/**
 	 * Generate parameter models
+	 * 
 	 * @param parameters
 	 * @param concept
 	 */
@@ -323,8 +470,6 @@ public class LaboratoryUtil {
 			parameters.add(parameter);
 		}
 	}
-	
-
 
 	private static List<Concept> getParameterConcepts(Concept concept) {
 
@@ -344,7 +489,7 @@ public class LaboratoryUtil {
 		} else if (concept.getDatatype().getName().equalsIgnoreCase("Numeric")) {
 			parameter.setId(concept.getName().getName().trim());
 			parameter.setType("text");
-			parameter.setUnit(getUnit(concept));			
+			parameter.setUnit(getUnit(concept));
 		} else if (concept.getDatatype().getName().equalsIgnoreCase("Coded")) {
 			parameter.setId(concept.getName().getName().trim());
 			parameter.setType("select");

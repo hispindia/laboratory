@@ -72,8 +72,9 @@
 				<td>
 					${test.age}
 				</td>
+				<%-- ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result' --%>
 				<td>
-					${test.testName}
+					${test.test.name}
 				</td>
 				
 			</tr>	

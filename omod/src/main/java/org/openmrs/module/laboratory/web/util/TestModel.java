@@ -20,19 +20,27 @@
 
 package org.openmrs.module.laboratory.web.util;
 
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
 
+import org.openmrs.Concept;
+import org.openmrs.ConceptName;
+import org.openmrs.ConceptSet;
 import org.openmrs.module.laboratory.web.util.TestModel;
 
 //ghanshyam 04/07/2012 New Requirement #277
-public class TestModel implements Comparator<TestModel>, Comparable<TestModel>{
+public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 
 	private String startDate;
-	private String patientIdentifier; 
+	private String patientIdentifier;
 	private String patientName;
 	private String gender;
 	private Integer age;
-	private String testName;
+	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
+	private Concept test;
+	private Concept testName;
 	private Integer orderId;
 	private String status;
 	private Integer testId;
@@ -41,10 +49,11 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel>{
 	private Integer encounterId;
 	private Integer conceptId;
 	private String sampleId;
-	
-	//ghanshyam 04/07/2012 New Requirement #277
-	public TestModel(){
-	   }
+	public String value;
+
+	// ghanshyam 04/07/2012 New Requirement #277
+	public TestModel() {
+	}
 
 	public String getStartDate() {
 		return startDate;
@@ -86,11 +95,19 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel>{
 		this.age = age;
 	}
 
-	public String getTestName() {
+	public Concept getTest() {
+		return test;
+	}
+
+	public void setTest(Concept test) {
+		this.test = test;
+	}
+
+	public Concept getTestName() {
 		return testName;
 	}
 
-	public void setTestName(String testName) {
+	public void setTestName(Concept testName) {
 		this.testName = testName;
 	}
 
@@ -157,16 +174,25 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel>{
 	public void setSampleId(String sampleId) {
 		this.sampleId = sampleId;
 	}
-	
-	//ghanshyam 04/07/2012 New Requirement #277
-	
-	 // Overriding the compareTo method
-	   public int compareTo(TestModel t){
-	      return (this.patientName).compareTo(t.patientName);
-	   }
-	   
-	   // Overriding the compare method
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	// ghanshyam 04/07/2012 New Requirement #277
+
+	// Overriding the compareTo method
+	public int compareTo(TestModel t) {
+		return (this.patientName).compareTo(t.patientName);
+	}
+
+	// Overriding the compare method
 	public int compare(TestModel t, TestModel t1) {
 		return 0;
 	}
+
 }

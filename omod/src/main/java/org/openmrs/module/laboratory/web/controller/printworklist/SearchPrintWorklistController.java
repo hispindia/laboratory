@@ -22,6 +22,7 @@ package org.openmrs.module.laboratory.web.controller.printworklist;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -32,12 +33,16 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.openmrs.Concept;
+import org.openmrs.ConceptNumeric;
+import org.openmrs.Encounter;
+import org.openmrs.Obs;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.model.LabTest;
 import org.openmrs.module.laboratory.LaboratoryService;
 import org.openmrs.module.laboratory.util.LaboratoryConstants;
 import org.openmrs.module.laboratory.web.util.LaboratoryUtil;
 import org.openmrs.module.laboratory.web.util.TestModel;
+import org.openmrs.module.laboratory.web.util.TestResultModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,8 +58,8 @@ public class SearchPrintWorklistController {
 	public String searchTest(
 			@RequestParam(value = "date", required = false) String dateStr,
 			@RequestParam(value = "phrase", required = false) String phrase,
-			@RequestParam(value = "investigation", required = false) Integer investigationId, HttpServletRequest request,
-			Model model) {
+			@RequestParam(value = "investigation", required = false) Integer investigationId,
+			HttpServletRequest request, Model model) {
 		LaboratoryService ls = (LaboratoryService) Context
 				.getService(LaboratoryService.class);
 		Concept investigation = Context.getConceptService().getConcept(
@@ -64,8 +69,8 @@ public class SearchPrintWorklistController {
 		try {
 			date = sdf.parse(dateStr);
 			Map<Concept, Set<Concept>> testTreeMap = (Map<Concept, Set<Concept>>) request
-			.getSession().getAttribute(
-					LaboratoryConstants.SESSION_TEST_TREE_MAP);
+					.getSession().getAttribute(
+							LaboratoryConstants.SESSION_TEST_TREE_MAP);
 			Set<Concept> allowableTests = new HashSet<Concept>();
 			if (investigation != null) {
 				allowableTests = testTreeMap.get(investigation);
@@ -74,17 +79,21 @@ public class SearchPrintWorklistController {
 					allowableTests.addAll(testTreeMap.get(c));
 				}
 			}
-			List<LabTest> laboratoryTests = ls.getAllLaboratoryTestsByDate(date, phrase, allowableTests);
-			List<TestModel> tests = LaboratoryUtil.generateModelsFromTests(laboratoryTests, testTreeMap);
-			//ghanshyam 04/07/2012 New Requirement #277
+			List<LabTest> laboratoryTests = ls.getAllLaboratoryTestsByDate(
+					date, phrase, allowableTests);
+			// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
+			List<TestModel> tests = LaboratoryUtil.generateModelsForPrintWorkListFromTests(
+					laboratoryTests, testTreeMap);
+			// ghanshyam 04/07/2012 New Requirement #277
 			Collections.sort(tests);
 			model.addAttribute("tests", tests);
-			model.addAttribute("testNo", tests.size());			
+			model.addAttribute("testNo", tests.size());
 		} catch (ParseException e) {
 			e.printStackTrace();
-			System.out.println("Error when parsing order date!");			
+			System.out.println("Error when parsing order date!");
 			return null;
 		}
 		return "/module/laboratory/printworklist/search";
 	}
+
 }

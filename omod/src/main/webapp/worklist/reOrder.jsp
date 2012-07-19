@@ -47,8 +47,9 @@
 					<td class='info'>Date</td>
 					<td>${test.startDate}</td>
 					<td width="30px"></td>
-					<td class='info'>Test name</td>
-					<td>${test.testName}</td>
+					<%-- ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result' --%>
+					<td class='info'>Test</td>
+					<td>${test.test.name}</td>
 				</tr>
 				<tr>
 					<td class='info'>Gender</td>

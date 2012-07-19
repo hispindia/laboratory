@@ -55,8 +55,6 @@
 					<td>${index.count}</td>
 				</c:otherwise>
 			</c:choose>
-			
-				
 				<td>
 					${test.startDate}
 				</td>
@@ -72,8 +70,9 @@
 				<td>
 					${test.age}
 				</td>
+				<%-- ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result' --%>
 				<td>
-					${test.testName}
+					${test.test.name}
 				</td>
 				<td id="acceptBox_${test.orderId}">					
 					<c:choose>

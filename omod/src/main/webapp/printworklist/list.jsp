@@ -35,13 +35,17 @@
 		var date = jQuery("#date").val();
 		var phrase = jQuery("#phrase").val();
 		var investigation = jQuery("#investigation").val();
+		//ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option
+		var showResults=document.getElementById("showResults").checked;
 		jQuery.ajax({
 			type : "GET",
 			url : getContextPath() + "/module/laboratory/searchPrintWorklist.form",
 			data : ({
 				date			: date,
 				phrase			: phrase,
-				investigation	: investigation
+				investigation	: investigation,
+				//ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option
+				showResults		: showResults
 			}),
 			success : function(data) {
 				jQuery("#tests").html(data);	
@@ -79,9 +83,11 @@
 			<option value="${investigation.id}">${investigation.name.name}</option>
 		</c:forEach>	
 	</select>
+	<input type="button" value="Print worklist" onClick="printWorklist();"/>
 	<br/>
 	<input type="button" value="Get worklist" onClick="getTests();"/>
-	<input type="button" value="Print worklist" onClick="printWorklist();"/> 
+	<%-- ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option --%>
+	<input type="checkbox" name="showResults" id="showResults" checked="checked"> with results<BR>
 </div>
 
 <div id="tests">

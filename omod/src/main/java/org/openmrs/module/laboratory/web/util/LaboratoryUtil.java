@@ -88,8 +88,8 @@ public class LaboratoryUtil {
 		return models;
 	}
 
-	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in
-	// Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
+	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
+	// ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option.added one more parameter in method generateModelsForPrintWorkListFromTests showResults 
 	/**
 	 * Generate list of test models for Print WorkList using tests
 	 * 
@@ -98,19 +98,20 @@ public class LaboratoryUtil {
 	 */
 
 	public static List<TestModel> generateModelsForPrintWorkListFromTests(
-			List<LabTest> tests, Map<Concept, Set<Concept>> testTreeMap) {
+			List<LabTest> tests, Map<Concept, Set<Concept>> testTreeMap,String showResults) {
 
 		List<TestModel> models = new ArrayList<TestModel>();
 		for (LabTest test : tests) {
-			List<TestModel> tm = generateModelForAllTestField(test, testTreeMap);
+			List<TestModel> tm = generateModelForAllTestField(test, testTreeMap,showResults);
 			models.addAll(tm);
 		}
 		return models;
 	}
 
 	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
+	// ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option.added one more parameter in method generateModelsForPrintWorkListFromTests showResults 
 	private static List<TestModel> generateModelForAllTestField(LabTest test,
-			Map<Concept, Set<Concept>> testTreeMap) {
+			Map<Concept, Set<Concept>> testTreeMap,String showResults) {
 		Order order = test.getOrder();
 		List<TestModel> listTm = new ArrayList<TestModel>();
 		boolean flag = false;
@@ -157,6 +158,9 @@ public class LaboratoryUtil {
 						tm.setInvestigation(getInvestigationName(
 								order.getConcept(), testTreeMap));
 					}
+					
+					// ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option
+					if (showResults.equals("true")) {
 					if (test.getEncounter() != null) {
 						for (Obs obs : encounter.getAllObs()) {
 							TestModel trm = new TestModel();
@@ -164,6 +168,17 @@ public class LaboratoryUtil {
 							tm.setValue(trm.getValue());
 						}
 					}
+				}
+					else{
+						if (test.getEncounter() != null) {
+							for (Obs obs : encounter.getAllObs()) {
+								TestModel trm = new TestModel();
+								setTestResultModelValue(obs, trm);
+								tm.setValue("");
+							}
+						}
+					}
+
 
 					listTm.add(tm);
 				}
@@ -201,13 +216,25 @@ public class LaboratoryUtil {
 					tm.setInvestigation(getInvestigationName(
 							order.getConcept(), testTreeMap));
 				}
+				
+				// ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option
+				if (showResults.equals("true")) {
 				if (test.getEncounter() != null) {
-
 					TestModel trm = new TestModel();
 					setTestResultModelValue(obs, trm);
 					tm.setValue(trm.getValue());
-
 				}
+			}
+				else{
+					if (test.getEncounter() != null) {
+
+						TestModel trm = new TestModel();
+						setTestResultModelValue(obs, trm);
+						tm.setValue("");
+
+					}
+				}
+
 				listTm.add(tm);
 
 			}

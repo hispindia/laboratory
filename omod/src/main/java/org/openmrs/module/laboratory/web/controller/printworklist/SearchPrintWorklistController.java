@@ -59,6 +59,7 @@ public class SearchPrintWorklistController {
 			@RequestParam(value = "date", required = false) String dateStr,
 			@RequestParam(value = "phrase", required = false) String phrase,
 			@RequestParam(value = "investigation", required = false) Integer investigationId,
+			@RequestParam(value = "showResults", required = false) String showResults,
 			HttpServletRequest request, Model model) {
 		LaboratoryService ls = (LaboratoryService) Context
 				.getService(LaboratoryService.class);
@@ -82,8 +83,9 @@ public class SearchPrintWorklistController {
 			List<LabTest> laboratoryTests = ls.getAllLaboratoryTestsByDate(
 					date, phrase, allowableTests);
 			// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
+			//ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option.added one more parameter in method generateModelsForPrintWorkListFromTests showResults 
 			List<TestModel> tests = LaboratoryUtil.generateModelsForPrintWorkListFromTests(
-					laboratoryTests, testTreeMap);
+					laboratoryTests, testTreeMap,showResults);
 			// ghanshyam 04/07/2012 New Requirement #277
 			Collections.sort(tests);
 			model.addAttribute("tests", tests);

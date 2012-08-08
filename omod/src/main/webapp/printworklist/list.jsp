@@ -22,9 +22,15 @@
 <%@ include file="../includes/js_css.jsp" %>
 <br/>
 <openmrs:require privilege="Print Laboratory Worklist" otherwise="/login.htm" redirect="/module/laboratory/printWorklist.form" />
+<%--ghanshyam 8-august-2012  New Requirement #319 [LABORATORY] Make Consolidated Print Work List an Option in the investigation drop down list --%>
+<openmrs:globalProperty key="laboratory.printworklist.findAllInvestigation" defaultValue="false" var="findAllInvestigation" />
 <%@ include file="../localHeader.jsp" %>
 
 <script type="text/javascript">
+<%--ghanshyam 8-august-2012  New Requirement #319 [LABORATORY] Make Consolidated Print Work List an Option in the investigation drop down list --%>
+var GLOBAL = {
+		findAllInvestigation: ${findAllInvestigation}
+	};
 
 	jQuery(document).ready(function() {
 		jQuery('#date').datepicker({yearRange:'c-30:c+30', dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
@@ -35,9 +41,13 @@
 		var date = jQuery("#date").val();
 		var phrase = jQuery("#phrase").val();
 		var investigation = jQuery("#investigation").val();
+		<%--ghanshyam 8-august-2012  New Requirement #319 [LABORATORY] Make Consolidated Print Work List an Option in the investigation drop down list --%>
+		validation = validate(investigation);	
 		//ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option
 		var showResults=document.getElementById("showResults").checked;
-		jQuery.ajax({
+		<%--ghanshyam 8-august-2012  New Requirement #319 [LABORATORY] Make Consolidated Print Work List an Option in the investigation drop down list --%>
+		if(validation.status){			
+			jQuery.ajax({
 			type : "GET",
 			url : getContextPath() + "/module/laboratory/searchPrintWorklist.form",
 			data : ({
@@ -57,6 +67,40 @@
 				alert(thrownError);
 			}
 		});
+	} 
+	<%--ghanshyam 8-august-2012  New Requirement #319 [LABORATORY] Make Consolidated Print Work List an Option in the investigation drop down list --%>
+	else {
+			alert(validation.message);
+		}		
+	}
+	
+	<%--ghanshyam 8-august-2012  New Requirement #319 [LABORATORY] Make Consolidated Work List an Option in the investigation drop down list --%>
+	/*
+	 * Check whether user is allowed to get tests from all investigations
+	 * return @validated {status, message}
+	 */
+	function validate(investigation){
+	//alert(investigation);
+		var validation = {
+			status: "true",
+			message: "fine"
+		};
+		
+		if(investigation>0){			
+			validation.status = true;
+		} 
+		else if(investigation=="select"){
+		        validation.status = false;
+				validation.message = "Please select an investigation!";
+		}
+		else{
+			if(GLOBAL.findAllInvestigation){
+				validation.status = true;
+			} 
+			
+		}		
+		
+		return validation;
 	}
 	
 	function printWorklist(){
@@ -78,10 +122,12 @@
 	Investigation:
 	<select name="investigation" id="investigation">
 	<%-- ghanshyam 09/07/2012 New Requirement #307 --%>
-		<option value="0">Consolidated List</option>
+	<%--ghanshyam 8-august-2012  New Requirement #319 [LABORATORY] Make Consolidated Print Work List an Option in the investigation drop down list --%>
+		<option value="select">Select</option>	
 		<c:forEach var="investigation" items="${investigations}">
 			<option value="${investigation.id}">${investigation.name.name}</option>
-		</c:forEach>	
+		</c:forEach>
+		<option value="0">CONSOLIDATED LIST</option>	
 	</select>
 	<input type="button" value="Print worklist" onClick="printWorklist();"/>
 	<br/>

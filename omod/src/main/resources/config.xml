@@ -92,6 +92,15 @@
 			Allow users to search for test from all investigations
 		</description>
 	</globalProperty>
+	
+	<!--ghanshyam 8-august-2012  New Requirement #319 [LABORATORY] Make Consolidated Work List an Option in the investigation drop down list -->
+	<globalProperty>
+		<property>@MODULE_ID@.printworklist.findAllInvestigation</property>
+		<defaultValue>false</defaultValue>
+		<description>
+			Allow users to search for test from all investigations
+		</description>
+	</globalProperty>
 	<!--
 	<dwr>
 		<allow>

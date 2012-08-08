@@ -90,7 +90,7 @@
 	 * return @validated {status, message}
 	 */
 	function validate(investigation){
-	
+	//alert(investigation);
 		var validation = {
 			status: "true",
 			message: "fine"
@@ -100,11 +100,17 @@
 		
 		if(investigation>0){			
 			validation.status = true;
-		} else {
-			
+		} 
+		<%--ghanshyam 8-august-2012  New Requirement #319 [LABORATORY] Make Consolidated Work List an Option in the investigation drop down list --%>
+		else if(investigation=="select"){
+		        validation.status = false;
+				validation.message = "Please select an investigation!";
+		}
+		else{
 			if(GLOBAL.findAllInvestigation){
 				validation.status = true;
 			} 
+			
 		}		
 		
 		return validation;
@@ -240,10 +246,12 @@
 	Investigation:
 	<select name="investigation" id="investigation">
 	<%-- ghanshyam 07/07/2012 New Requirement #307 Generate Consolidated Work List in laboratory module --%>
-		<option value="0">Consolidated List</option>
+	<%--ghanshyam 8-august-2012  New Requirement #319 [LABORATORY] Make Consolidated Work List an Option in the investigation drop down list --%>
+		<option value="select">Select</option>	
 		<c:forEach var="investigation" items="${investigations}">
 			<option value="${investigation.id}">${investigation.name.name}</option>
-		</c:forEach>	
+		</c:forEach>
+		<option value="0">CONSOLIDATED LIST</option>	
 	</select>
 	<br/>
 	<input type="button" value="Get worklist" onClick="getTests();"/>

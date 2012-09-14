@@ -19,6 +19,17 @@
 --%> 
 <%@ include file="/WEB-INF/template/include.jsp" %>
 <script type="text/javascript">
+/*
+ *Ghanshyam - Sagar 
+ Sep 14,2012  
+ Bug #360: [Laboratory Module] Same result entered twice in database.
+ */
+function refreshLabResult(){
+        jQuery.ajax({
+                type : "GET",
+                url : getContextPath() + "/module/laboratory/searchWorklist.form"
+                });
+}
 	testNo = ${testNo};
 </script>
 <table id="myTable" class="tablesorter">
@@ -83,9 +94,14 @@
 					<form id="contentForm${test.testId}" method="post" action="showForm.form">
 						
 					</form>
+				<%-- 
+					 Ghanshyam - Sagar 
+					 Sep 14,2012  
+					 Bug #360: [Laboratory Module] Same result entered twice in database.
+					 --%>
 					<div style='clear: both;'></div>
-					<input type='button' value='Save' onClick='submit(${test.testId});'/>
-					<input type='button' value='Cancel' onClick='jQuery("#row${test.testId}").hide();'/>						
+					<input type="button" value="Save" onClick="submit(${test.testId});refreshLabResult();"/>
+					<input type="button" value="Cancel" onClick="jQuery("#row${test.testId}").hide();"/>						
 				</td>
 			</tr>
 		</c:forEach>

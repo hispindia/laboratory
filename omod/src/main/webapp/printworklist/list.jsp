@@ -109,6 +109,22 @@ var GLOBAL = {
 			popClose : true
 		});
 	}
+	
+	// ghanshyam 24-sept-2012 New Requirement #361 [Laboratory] Export to Excel option in print worklist
+	function exportWorklist(){
+		var date = jQuery("#date").val();
+		var phrase = jQuery("#phrase").val();
+		var investigation = jQuery("#investigation").val();
+		validation = validate(investigation);	
+		var showResults=document.getElementById("showResults").checked;
+		if(validation.status){			
+		window.location = getContextPath() + "/module/laboratory/download.form?date=" + date + "&phrase=" + phrase + "&investigation=" + investigation + "&showResults=" + showResults;
+	} 
+	else {
+			alert(validation.message);
+		}		
+	}
+	
 </script> 
 
 <div class="boxHeader"> 
@@ -130,6 +146,8 @@ var GLOBAL = {
 		<option value="0">CONSOLIDATED LIST</option>	
 	</select>
 	<input type="button" value="Print worklist" onClick="printWorklist();"/>
+	<%-- ghanshyam 24-sept-2012 New Requirement #361 [Laboratory] Export to Excel option in print worklist --%>
+	<input type="button" value="Export worklist" onClick="exportWorklist();" />
 	<br/>
 	<input type="button" value="Get worklist" onClick="getTests();"/>
 	<%-- ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option --%>

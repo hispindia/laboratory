@@ -91,7 +91,7 @@ var GLOBAL = {
 		} 
 		else if(investigation=="select"){
 		        validation.status = false;
-				validation.message = "Please select an investigation!";
+				validation.message = "Please select an investigation to proceed!";
 		}
 		else{
 			if(GLOBAL.findAllInvestigation){

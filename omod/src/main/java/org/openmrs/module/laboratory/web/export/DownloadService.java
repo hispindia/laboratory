@@ -116,10 +116,10 @@ public class DownloadService {
 		String months[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 				"Aug", "Sep", "Oct", "Nov", "Dec" };
 		GregorianCalendar gcalendar = new GregorianCalendar();
-		String dateAndTime2 = (gcalendar.get(Calendar.DATE) + "-"
+		String dateAndTime = (gcalendar.get(Calendar.DATE) + "-"
 				+ months[gcalendar.get(Calendar.MONTH)] + "-" + gcalendar
 				.get(Calendar.YEAR)).toString();
-		String fileName = "PatientLabResultReport" + dateAndTime2 + ".xls";
+		String fileName = "PatientLabResultReport" + dateAndTime + ".xls";
 		response.setHeader("Content-Disposition", "inline; filename="
 				+ fileName);
 		// Make sure to set the correct content type

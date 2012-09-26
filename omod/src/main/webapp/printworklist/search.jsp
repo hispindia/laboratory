@@ -27,10 +27,11 @@
 		<tr>
 			<th>Order Date</th>
 			<th>Patient Identifier</th>
-			<th>Sample No.</th>
+			<%-- ghanshyam 26-sept-2012 [Laboratory - Support #391] (New) Same format in the 'Print Worklist and 'Export Worklist' --%>
+			<th>Name</th>
 			<th>Age</th>
 			<th>Gender</th>
-			<th>Name</th>
+			<th>Sample No.</th>
 			<th>Lab</th>
 			<th>Test</th>
 			<th>Test name</th>
@@ -51,10 +52,11 @@
 			<tr class="${klass}">
 				<td>${test.acceptedDate}</td>
 				<td>${test.patientIdentifier}</td>
-				<td>${test.sampleId}</td>
+				<%-- ghanshyam 26-sept-2012 [Laboratory - Support #391] (New) Same format in the 'Print Worklist and 'Export Worklist' --%>
+				<td>${test.patientName}</td>
 				<td>${test.age}</td>
 				<td>${test.gender}</td>
-				<td>${test.patientName}</td>
+				<td>${test.sampleId}</td>
 				<%-- ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result' --%>
 				<td>${test.investigation}</td>
 				<td>${test.test.name}</td>

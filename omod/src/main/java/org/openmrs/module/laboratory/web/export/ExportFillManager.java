@@ -89,24 +89,24 @@ public class ExportFillManager {
 			cell6.setCellValue(datasource.get(i - 2).getSampleId());
 			cell6.setCellStyle(bodyCellStyle);
 
-			// Retrieve the Name of Test of the Patient
+			// Retrieve the Name of Investigation
 			HSSFCell cell7 = row.createCell(startColIndex + 6);
 			cell7.setCellValue(datasource.get(i - 2).getInvestigation());
 			cell7.setCellStyle(bodyCellStyle);
 
-			// Retrieve the Name of Investigation
+			// Retrieve the Name of Test
 			HSSFCell cell8 = row.createCell(startColIndex + 7);
 			cell8.setCellValue(datasource.get(i - 2).getTest().getName()
 					.getName());
 			cell8.setCellStyle(bodyCellStyle);
 
-			// Retrieve the Name of Patient
+			// Retrieve the Name of Test name
 			HSSFCell cell9 = row.createCell(startColIndex + 8);
 			cell9.setCellValue(datasource.get(i - 2).getTestName().getName()
 					.getName());
 			cell9.setCellStyle(bodyCellStyle);
 
-			// Retrieve the Name of Patient
+			// Retrieve the Test Result
 			HSSFCell cell10 = row.createCell(startColIndex + 9);
 			cell10.setCellValue(datasource.get(i - 2).getValue());
 			cell10.setCellStyle(bodyCellStyle);

@@ -23,7 +23,10 @@
 
 package org.openmrs.module.laboratory.web.export;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -99,7 +102,19 @@ public class ExportLayouter {
 		// Create date header
 		HSSFRow dateTitle = worksheet.createRow((short) startRowIndex + 1);
 		HSSFCell cellDate = dateTitle.createCell(startColIndex);
-		cellDate.setCellValue("This report was generated at " + new Date());
+		//ghanshyam 27-sept-2012 Support #393 [Laboratory]Export to Excel option in print worklist (note: changed day,date and time format inside excel report sheet)
+		String months[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+				"Aug", "Sep", "Oct", "Nov", "Dec" };
+		String days[] = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+		GregorianCalendar gcalendar = new GregorianCalendar();
+		String dayName = days[gcalendar.get(Calendar.DAY_OF_WEEK) - 1];
+		String date = (gcalendar.get(Calendar.DATE) + "-"
+				+ months[gcalendar.get(Calendar.MONTH)] + "-" + gcalendar
+				.get(Calendar.YEAR)).toString();
+		Date d = new Date();
+		cellDate.setCellValue("This report was generated on " + dayName + " " + date
+				+ " " + "at" + " " + d.getHours() + ":" + d.getMinutes() + ":"
+				+ d.getSeconds());
 	}
 
 	/**

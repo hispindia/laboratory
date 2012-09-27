@@ -93,14 +93,16 @@ table.wltable .right {
 	<table class="wltable" cellspacing="0">
 		<tr>
 			<th class="right">Order Date</th>
-			<th class="right">Patient ID</th>
-			<th class="right">Sample No.</th>
+			<%-- ghanshyam 26-sept-2012 [Laboratory - Support #391] (New) Same format in the 'Print Worklist and 'Export Worklist' --%>
+			<th class="right">Patient Identifier</th>
+			<th class="right">Name</th>
 			<th class="right">Age</th>
 			<th class="right">Gender</th>
-			<th class="right">Name</th>
+			<th class="right">Sample No.</th>
+			<th class="right">Lab</th>
 			<th class="right">Test</th>
 			<th class="right">Test name</th>
-			<th style="width: 200px;">Enter Result</th>
+			<th class="right">Result</th>
 		</tr>
 		<c:forEach var="test" items="${tests}" varStatus="index">
 			<c:choose>
@@ -114,13 +116,15 @@ table.wltable .right {
 			<tr class="${klass}">
 				<td class="right">${test.acceptedDate}</td>
 				<td class="right">${test.patientIdentifier}</td>
-				<td class="right">${test.sampleId}</td>
+				<%-- ghanshyam 26-sept-2012 [Laboratory - Support #391] (New) Same format in the 'Print Worklist and 'Export Worklist' --%>
+				<td class="right">${test.patientName}</td>
 				<td class="right">${test.age}</td>
 				<td class="right">${test.gender}</td>
-				<td class="right">${test.patientName}</td>
-				<td class="right">${test.test.name}</td>
+				<td class="right">${test.sampleId}</td>
 				<td class="right">${test.investigation}</td>
-				<td>${test.value}</td>
+				<td class="right">${test.test.name}</td>
+				<td class="right">${test.testName.name}</td>
+				<td class="right">${test.value}</td>
 			</tr>
 		</c:forEach>
 	</table>

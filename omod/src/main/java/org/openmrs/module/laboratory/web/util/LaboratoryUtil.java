@@ -88,8 +88,11 @@ public class LaboratoryUtil {
 		return models;
 	}
 
-	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
-	// ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option.added one more parameter in method generateModelsForPrintWorkListFromTests showResults 
+	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in
+	// Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
+	// ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an
+	// Option.added one more parameter in method
+	// generateModelsForPrintWorkListFromTests showResults
 	/**
 	 * Generate list of test models for Print WorkList using tests
 	 * 
@@ -98,92 +101,32 @@ public class LaboratoryUtil {
 	 */
 
 	public static List<TestModel> generateModelsForPrintWorkListFromTests(
-			List<LabTest> tests, Map<Concept, Set<Concept>> testTreeMap,String showResults) {
+			List<LabTest> tests, Map<Concept, Set<Concept>> testTreeMap,
+			String showResults) {
 
 		List<TestModel> models = new ArrayList<TestModel>();
 		for (LabTest test : tests) {
-			List<TestModel> tm = generateModelForAllTestField(test, testTreeMap,showResults);
+			List<TestModel> tm = generateModelForAllTestField(test,
+					testTreeMap, showResults);
 			models.addAll(tm);
 		}
 		return models;
 	}
 
-	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
-	// ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option.added one more parameter in method generateModelsForPrintWorkListFromTests showResults 
+	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in
+	// Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
+	// ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an
+	// Option.added one more parameter in method
+	// generateModelsForPrintWorkListFromTests showResults
 	private static List<TestModel> generateModelForAllTestField(LabTest test,
-			Map<Concept, Set<Concept>> testTreeMap,String showResults) {
+			Map<Concept, Set<Concept>> testTreeMap, String showResults) {
 		Order order = test.getOrder();
 		List<TestModel> listTm = new ArrayList<TestModel>();
 		boolean flag = false;
 		Encounter encounter = test.getEncounter();
-		if (encounter != null) {
-			for (ConceptSet testFields : test.getOrder().getConcept()
-					.getConceptSets()) {
-				for (Obs obs : encounter.getAllObs()) {
-					if (obs.getConcept().equals(testFields.getConcept())) {
-						flag = true;
-					}
-				}
-				if (!flag) {
-					flag = false;
-
-					TestModel tm = new TestModel();
-					tm.setStartDate(sdf.format(order.getStartDate()));
-					tm.setPatientIdentifier(order.getPatient()
-							.getPatientIdentifier().getIdentifier());
-					tm.setPatientName(PatientUtils.getFullName(order
-							.getPatient()));
-					tm.setGender(order.getPatient().getGender());
-					tm.setAge(order.getPatient().getAge());
-					tm.setTest(order.getConcept());
-					setTestResultModelValue(null, tm);
-					tm.setTestName(testFields.getConcept());
-					tm.setOrderId(order.getOrderId());
-
-					if (test != null) {
-						tm.setStatus(test.getStatus());
-						tm.setTestId(test.getLabTestId());
-						tm.setAcceptedDate(sdf.format(test.getAcceptDate()));
-						tm.setConceptId(test.getConcept().getConceptId());
-						tm.setSampleId(test.getSampleNumber());
-						if (test.getEncounter() != null)
-							tm.setEncounterId(test.getEncounter()
-									.getEncounterId());
-					} else {
-						tm.setStatus(null);
-					}
-
-					// get investigation from test tree map
-					if (testTreeMap != null) {
-						tm.setInvestigation(getInvestigationName(
-								order.getConcept(), testTreeMap));
-					}
-					
-					// ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option
-					if (showResults.equals("true")) {
-					if (test.getEncounter() != null) {
-						for (Obs obs : encounter.getAllObs()) {
-							TestModel trm = new TestModel();
-							setTestResultModelValue(obs, trm);
-							tm.setValue(trm.getValue());
-						}
-					}
-				}
-					else{
-						if (test.getEncounter() != null) {
-							for (Obs obs : encounter.getAllObs()) {
-								TestModel trm = new TestModel();
-								setTestResultModelValue(obs, trm);
-								tm.setValue("");
-							}
-						}
-					}
-
-
-					listTm.add(tm);
-				}
-
-			}
+		// ghanshyam 1-oct-2012 Support #392 [Laboratory]Print Work
+		// List(note:added the condition encounter.getAllObs().size()!=0)
+		if (encounter != null && encounter.getAllObs().size() != 0) {
 
 			for (Obs obs : encounter.getAllObs()) {
 
@@ -216,16 +159,16 @@ public class LaboratoryUtil {
 					tm.setInvestigation(getInvestigationName(
 							order.getConcept(), testTreeMap));
 				}
-				
-				// ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option
+
+				// ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show
+				// Results as an Option
 				if (showResults.equals("true")) {
-				if (test.getEncounter() != null) {
-					TestModel trm = new TestModel();
-					setTestResultModelValue(obs, trm);
-					tm.setValue(trm.getValue());
-				}
-			}
-				else{
+					if (test.getEncounter() != null) {
+						TestModel trm = new TestModel();
+						setTestResultModelValue(obs, trm);
+						tm.setValue(trm.getValue());
+					}
+				} else {
 					if (test.getEncounter() != null) {
 
 						TestModel trm = new TestModel();
@@ -239,6 +182,42 @@ public class LaboratoryUtil {
 
 			}
 
+		}
+		// ghanshyam 1-oct-2012 Support #392 [Laboratory]Print Work
+		// List(note:added the else condition)
+		else {
+			Concept con1 = order.getConcept();
+			if (con1.getSetMembers().size() != 0) {
+				for (Concept con2 : con1.getSetMembers()) {
+					TestModel tm1 = new TestModel();
+					TestModel tm2 = new TestModel();
+					tm2 = generateModel(test.getOrder(), test, testTreeMap);
+					tm1.setPatientIdentifier(tm2.getPatientIdentifier());
+					tm1.setPatientName(tm2.getPatientName());
+					tm1.setGender(tm2.getGender());
+					tm1.setAge(tm2.getAge());
+					tm1.setTest(tm2.getTest());
+					tm1.setTestName(con2);
+					tm1.setAcceptedDate(tm2.getAcceptedDate());
+					tm1.setSampleId(tm2.getSampleId());
+					tm1.setInvestigation(tm2.getInvestigation());
+					listTm.add(tm1);
+				}
+			} else {
+				TestModel tm1 = new TestModel();
+				TestModel tm2 = new TestModel();
+				tm2 = generateModel(test.getOrder(), test, testTreeMap);
+				tm1.setPatientIdentifier(tm2.getPatientIdentifier());
+				tm1.setPatientName(tm2.getPatientName());
+				tm1.setGender(tm2.getGender());
+				tm1.setAge(tm2.getAge());
+				tm1.setTest(tm2.getTest());
+				tm1.setTestName(tm2.getTest());
+				tm1.setAcceptedDate(tm2.getAcceptedDate());
+				tm1.setSampleId(tm2.getSampleId());
+				tm1.setInvestigation(tm2.getInvestigation());
+				listTm.add(tm1);
+			}
 		}
 		return listTm;
 	}
@@ -353,7 +332,8 @@ public class LaboratoryUtil {
 		return tm;
 	}
 
-	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
+	// ghanshyam 19/07/2012 New Requirement #309: [LABORATORY] Show Results in
+	// Print WorkList.introduced the column 'Lab' 'Test' 'Test name' 'Result'
 	private static void setTestResultModelValue(Obs obs, TestModel trm) {
 		if (obs != null) {
 			Concept concept = Context.getConceptService().getConcept(

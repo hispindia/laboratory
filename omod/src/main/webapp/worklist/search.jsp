@@ -101,7 +101,7 @@ function refreshLabResult(){
 					 --%>
 					<div style='clear: both;'></div>
 					<input type="button" value="Save" onClick="submit(${test.testId});refreshLabResult();"/>
-					<input type="button" value="Cancel" onClick="jQuery("#row${test.testId}").hide();"/>						
+					<input type="button" value="Cancel" onClick='jQuery("#row${test.testId}").hide();'/>						
 				</td>
 			</tr>
 		</c:forEach>

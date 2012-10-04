@@ -48,7 +48,7 @@ public class ExportLayouter {
 
 		// Set column widths
 		worksheet.setColumnWidth(0, 5000);
-		worksheet.setColumnWidth(1, 5000);
+		worksheet.setColumnWidth(1, 6000);
 		worksheet.setColumnWidth(2, 5000);
 		worksheet.setColumnWidth(3, 3000);
 		worksheet.setColumnWidth(4, 3000);

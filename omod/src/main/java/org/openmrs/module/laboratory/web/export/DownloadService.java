@@ -115,11 +115,18 @@ public class DownloadService {
 		// default locale and timezone.
 		String months[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 				"Aug", "Sep", "Oct", "Nov", "Dec" };
-		GregorianCalendar gcalendar = new GregorianCalendar();
-		String dateAndTime = (gcalendar.get(Calendar.DATE) + "-"
-				+ months[gcalendar.get(Calendar.MONTH)] + "-" + gcalendar
-				.get(Calendar.YEAR)).toString();
-		String fileName = "PatientLabResultReport" + dateAndTime + ".xls";
+		//ghanshyam 4-oct-2012 Support #405 [Laboratory]Export workList excel sheet name should include the investigation date not current date
+		String dateStr = adts.getDateStr();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date date=new Date();
+		date = sdf.parse(dateStr);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		String day=Integer.toString(date.getDate());
+		String month=months[date.getMonth()];
+		String year=Integer.toString(calendar.get(Calendar.YEAR));
+		String dayMonthYear=day+"-"+month+"-"+year;
+		String fileName = "PatientLabResultReport" + dayMonthYear + ".xls";
 		response.setHeader("Content-Disposition", "inline; filename="
 				+ fileName);
 		// Make sure to set the correct content type

@@ -112,7 +112,6 @@ public class DownloadService {
 				getDatasource(adts, request));
 
 		// 6. Set the response properties
-		// default locale and timezone.
 		String months[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 				"Aug", "Sep", "Oct", "Nov", "Dec" };
 		//ghanshyam 4-oct-2012 Support #405 [Laboratory]Export workList excel sheet name should include the investigation date not current date

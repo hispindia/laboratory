@@ -1,3 +1,12 @@
+0.5.10
+Support #391: [Laboratory]Same format in the 'Print Worklist and 'Export Worklist'
+New Requirement #277: [LABORATORY] WorkList of Patients in Alphabetical Order
+New Requirement #307: [LABORATORY] Generate Consolidated Work List
+New Requirement #316: [LABORATORY] Advanced Search in Patient Report
+New Requirement #319: [LABORATORY] Make Consolidated Work List an Option in the investigation drop down list
+New Requirement #320: [LABORATORY] Show Results as an Option
+New Requirement #361: [Laboratory] Export to Excel option in print worklist
+
 0.5.9
 - Fixed high priority jenkins bugs
 - Resolved issues

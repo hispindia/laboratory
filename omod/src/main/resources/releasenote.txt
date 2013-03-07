@@ -1,3 +1,8 @@
+0.5.11
+- #512               Update registration page and print out page for NIKDU Hospital, Bangladesh i.e BD_SPECIALIZED or(BD_HOSPITAL)
+- #511               Update registration page and print out page for MCHTI Hospital, Bangladesh
+- #510               Update registration page and print out page for Govenment Employee Hospital, Bangladesh
+
 0.5.10
 Support #391: [Laboratory]Same format in the 'Print Worklist and 'Export Worklist'
 New Requirement #277: [LABORATORY] WorkList of Patients in Alphabetical Order

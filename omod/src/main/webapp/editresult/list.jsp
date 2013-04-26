@@ -79,6 +79,19 @@
 		});
 	}
 	
+	//ghanshyam 26/04/2013 Feedback #662 [LABORATORY 0.5.10-SNAPSHOT] Edit the result of the patient
+	// complete a test
+	function completeTest(testId) {		
+
+		jQuery.ajax({
+			type : "GET",
+			url : getContextPath() + "/module/laboratory/ajax/completeTest.htm",
+			data : ({
+				testId : testId
+			})
+		});
+	}
+	
 	//  enter result for a test
 	function enterResult(testId, conceptId, encounterId){
 	
@@ -115,14 +128,15 @@
 	}
 	
 	// submit form
-	function submit(testId){
+	//ghanshyam 26/04/2013 Feedback #662 [LABORATORY 0.5.10-SNAPSHOT] Edit the result of the patient
+	function submit(testId,patientIdentifier){
 		validationResult = jQuery("#contentForm" + testId).valid();
 		if(validationResult){
 			jQuery("#contentForm" + testId).ajaxSubmit({
 				success: function (responseText, statusText, xhr){					
 					if(responseText.indexOf('success')>=0){						
-						getTests();
-						completeTest(testId);						
+						completeTest(testId);
+						getTests(patientIdentifier);						
 					}
 				}
 			});					

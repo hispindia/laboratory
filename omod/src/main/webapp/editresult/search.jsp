@@ -65,7 +65,7 @@
 				<td colspan='10'>
 					<form id="contentForm${test.testId}" method="post"
 						action="showForm.form"></form>
-					<%-- ghanshyam 26/04/2013 Feedback #662 [LABORATORY 0.5.10-SNAPSHOT] Edit the result of the patient --%>	
+					<%-- ghanshyam 26/04/2013 Feedback #662 [LABORATORY 0.5.11-SNAPSHOT] Edit the result of the patient --%>	
 					<div style='clear: both;'></div> <input type='button' value='Save'
 					onClick='submit(${test.testId},"${test.patientIdentifier}");' /> <input type='button'
 					value='Cancel' onClick='jQuery("#row${test.testId}").hide();' /></td>

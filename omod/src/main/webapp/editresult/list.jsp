@@ -79,7 +79,7 @@
 		});
 	}
 	
-	//ghanshyam 26/04/2013 Feedback #662 [LABORATORY 0.5.10-SNAPSHOT] Edit the result of the patient
+	//ghanshyam 26/04/2013 Feedback #662 [LABORATORY 0.5.11-SNAPSHOT] Edit the result of the patient
 	// complete a test
 	function completeTest(testId) {		
 
@@ -128,7 +128,7 @@
 	}
 	
 	// submit form
-	//ghanshyam 26/04/2013 Feedback #662 [LABORATORY 0.5.10-SNAPSHOT] Edit the result of the patient
+	//ghanshyam 26/04/2013 Feedback #662 [LABORATORY 0.5.11-SNAPSHOT] Edit the result of the patient
 	function submit(testId,patientIdentifier){
 		validationResult = jQuery("#contentForm" + testId).valid();
 		if(validationResult){

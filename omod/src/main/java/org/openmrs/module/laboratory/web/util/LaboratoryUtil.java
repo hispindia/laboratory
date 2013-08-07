@@ -51,7 +51,8 @@ import org.springframework.ui.Model;
 
 public class LaboratoryUtil {
 
-	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	 //ghanshyam 7-august-2013 code review bug
+	//private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private static Map<Concept, String> conceptNames = new HashMap<Concept, String>();
 
 	/**
@@ -130,6 +131,8 @@ public class LaboratoryUtil {
 
 			for (Obs obs : encounter.getAllObs()) {
 
+				//ghanshyam 7-august-2013 code review bug
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 				TestModel tm = new TestModel();
 				tm.setStartDate(sdf.format(order.getStartDate()));
 				tm.setPatientIdentifier(order.getPatient()
@@ -254,6 +257,8 @@ public class LaboratoryUtil {
 	 * @return
 	 */
 	public static String formatDate(Date date) {
+		//ghanshyam 7-august-2013 code review bug
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.format(date);
 	}
 
@@ -265,6 +270,8 @@ public class LaboratoryUtil {
 	 * @throws ParseException
 	 */
 	public static Date parseDate(String dateStr) throws ParseException {
+		//ghanshyam 7-august-2013 code review bug
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.parse(dateStr);
 	}
 
@@ -301,6 +308,8 @@ public class LaboratoryUtil {
 	private static TestModel generateModel(Order order, LabTest test,
 			Map<Concept, Set<Concept>> testTreeMap) {
 
+		//ghanshyam 7-august-2013 code review bug
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		TestModel tm = new TestModel();
 		tm.setStartDate(sdf.format(order.getStartDate()));
 		tm.setPatientIdentifier(order.getPatient().getPatientIdentifier()

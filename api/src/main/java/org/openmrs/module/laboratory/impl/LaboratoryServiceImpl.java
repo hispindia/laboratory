@@ -51,7 +51,8 @@ public class LaboratoryServiceImpl extends BaseOpenmrsService implements
 		LaboratoryService {
 
 	private Log logger = LogFactory.getLog(getClass());
-	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	 //ghanshyam 7-august-2013 code review bug
+	//private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 	public LaboratoryServiceImpl() {
 	}
@@ -175,6 +176,8 @@ public class LaboratoryServiceImpl extends BaseOpenmrsService implements
 				return LaboratoryConstants.ACCEPT_TEST_RETURN_ERROR_EXISTING_TEST;
 			}
 		} else {
+			//ghanshyam 7-august-2013 code review bug
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			logger.warn(String.format("SampleId=%s for date=%s is existing",
 					sampleId, sdf.format(new Date())));
 			return LaboratoryConstants.ACCEPT_TEST_RETURN_ERROR_EXISTING_SAMPLEID;
@@ -186,6 +189,8 @@ public class LaboratoryServiceImpl extends BaseOpenmrsService implements
 	 */
 	public String getDefaultSampleId(String investigationName)
 			throws ParseException {
+		//ghanshyam 7-august-2013 code review bug
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		String date = sdf.format(new Date());
 		String letter = investigationName.toUpperCase().substring(0, 1);
 		String defaultSampleId = "";

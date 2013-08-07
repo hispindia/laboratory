@@ -121,6 +121,7 @@ public class LaboratoryUtil {
 	// generateModelsForPrintWorkListFromTests showResults
 	private static List<TestModel> generateModelForAllTestField(LabTest test,
 			Map<Concept, Set<Concept>> testTreeMap, String showResults) {
+		//ghanshyam 7-august-2013 code review bug
 		List<TestModel> listTm = new ArrayList<TestModel>();
 		if(test!=null){
 		Order order = test.getOrder();
@@ -223,6 +224,7 @@ public class LaboratoryUtil {
 				listTm.add(tm1);
 			}
 		}
+	  }
 		return listTm;
 	}
 

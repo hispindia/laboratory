@@ -121,8 +121,9 @@ public class LaboratoryUtil {
 	// generateModelsForPrintWorkListFromTests showResults
 	private static List<TestModel> generateModelForAllTestField(LabTest test,
 			Map<Concept, Set<Concept>> testTreeMap, String showResults) {
-		Order order = test.getOrder();
 		List<TestModel> listTm = new ArrayList<TestModel>();
+		if(test!=null){
+		Order order = test.getOrder();
 		boolean flag = false;
 		Encounter encounter = test.getEncounter();
 		// ghanshyam 1-oct-2012 Support #392 [Laboratory]Print Work

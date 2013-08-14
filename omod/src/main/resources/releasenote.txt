@@ -1,3 +1,6 @@
+0.5.12
+-
+
 0.5.11
 - #512               Update registration page and print out page for NIKDU Hospital, Bangladesh i.e BD_SPECIALIZED or(BD_HOSPITAL)
 - #511               Update registration page and print out page for MCHTI Hospital, Bangladesh

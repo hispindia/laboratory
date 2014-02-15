@@ -1,5 +1,5 @@
  <%--
- *  Copyright 2009 Society for Health Information Systems Programmes, India (HISP India)
+ *  Copyright 2014 Society for Health Information Systems Programmes, India (HISP India)
  *
  *  This file is part of Laboratory module.
  *
@@ -16,6 +16,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Laboratory module.  If not, see <http://www.gnu.org/licenses/>.
  *
+ *  
+ *  
+ *  
 --%> 
 <%@ include file="/WEB-INF/template/include.jsp" %>
 <%@ page import="java.util.Map" %>
@@ -60,9 +63,10 @@
 			<td><b>Gender</b></td>			
 			<td><b>Birthdate</b></td>
 			<td><b>Relative Name</b></td>
+			<td><b>Phone Number</b></td>
 		</tr>
 		<c:forEach items="${patients}" var="patient" varStatus="varStatus">
-			<tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow" } patientSearchRow' onClick="getPatientReport('${patient.patientId}');">				
+			<tr class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow" } patientSearchRow' onClick="getPatientReport('${patient.id}');">				
 				<td>
 					${patient.patientIdentifier.identifier}
 				</td>
@@ -92,6 +96,13 @@
 						String relativeName = patientAttributes.get(8); 
 						if(relativeName!=null)
 							out.print(relativeName);
+					%>
+                </td>
+                <td> 
+                	<%						
+						String phoneNumber = patientAttributes.get(16);
+						if(phoneNumber!=null)
+							out.print(phoneNumber);					
 					%>
                 </td>
 			</tr>

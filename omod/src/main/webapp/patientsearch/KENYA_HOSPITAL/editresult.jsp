@@ -1,5 +1,5 @@
  <%--
- *  Copyright 2012 Society for Health Information Systems Programmes, India (HISP India)
+ *  Copyright 2014 Society for Health Information Systems Programmes, India (HISP India)
  *
  *  This file is part of Laboratory module.
  *
@@ -16,9 +16,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Laboratory module.  If not, see <http://www.gnu.org/licenses/>.
  *  
- *  author: ghanshyam
- *  date: 7-01-2013
- *  This file added for Searching as per HospitalCore name
+ *  
+ *  
+ *  
 --%> 
 <%@ include file="/WEB-INF/template/include.jsp" %>
 <%@ page import="java.util.Map" %>

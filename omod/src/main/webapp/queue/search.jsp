@@ -24,7 +24,7 @@
 <table id="myTable" class="tablesorter">
 	<thead>
 		<tr> 
-			<th>No</th>
+			<th><center>Sr.No.<center></th>
 			<th>Date</th>
 			<th>Patient ID</th>
 			<th>Name</th>
@@ -52,7 +52,7 @@
 				<td>${index.count + (pagingUtil.currentPage-1)*pagingUtil.pageSize} </td>
 				</c:when>
 				<c:otherwise>
-					<td>${index.count}</td>
+					<td><center>${index.count}</center></td>
 				</c:otherwise>
 			</c:choose>
 				<td>

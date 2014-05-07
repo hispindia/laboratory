@@ -20,23 +20,26 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <table border='0'>
 	<tr>
-		<td style="text-align:right;">ID. No:</td>
-		<td><b>${patient_identifier}</b></td>
-		<td style="text-align:right;">Age:</td>
-		<td><b>${patient_age}</b></td>
-		<td style="text-align:right;">Gender:</td>
-		<td><b><c:choose>
+		<td style="text-align:right;"><b>&nbsp;&nbsp;&nbsp;&nbsp;Identifier:</b></td>
+		<td>${patient_identifier}</td>
+		<td style="text-align:left;">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td style="text-align:right;"><b>Age:</b></td>
+		<td>${patient_age}</td>
+		<td style="text-align:left;">&nbsp;&nbsp;&nbsp;&nbsp;</td>		
+		<td style="text-align:right;"><b>Gender:</b></td>
+		<td><c:choose>
 				<c:when test="${patient_gender eq 'M'}">Male</c:when>
 				<c:otherwise>Female</c:otherwise>
 			</c:choose>
-			</b>
+			
 		</td>
 	</tr>
 	<tr>		
-		<td style="text-align:right;">Name:</td>
-		<td><b>${patient_name}</b></td>
-		<td style="text-align:right;">Order date:</td>
-		<td><b>${test_orderDate}</b></td>
+		<td style="text-align:right;"><b>Name:</b></td>
+		<td>${patient_name}</td>
+		<td style="text-align:left;">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td style="text-align:right;"><b>Order date:<b></td>
+		<td>${test_orderDate}</td>
 		<td></td>
 		<td></td>
 	</tr>

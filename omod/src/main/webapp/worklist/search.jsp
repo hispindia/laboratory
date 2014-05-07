@@ -35,8 +35,8 @@ function refreshLabResult(){
 <table id="myTable" class="tablesorter">
 	<thead>
 		<tr> 
-			<th>Sr. No.</th>
-			<th>Sample No.</th>
+			<th><center>Sr. No.</center></th>
+			<th>Sample ID</th>
 			<th>Results</th>
 			<th>Reorder</th>	
 			<th>Date</th>
@@ -58,7 +58,7 @@ function refreshLabResult(){
 				</c:otherwise>
 			</c:choose>
 			<tr class="${klass}">
-				<td>${index.count}</td>
+				<td><center>${index.count}</center></td>
 				<td>${test.sampleId}</td>
 				<td>
 					<a href="javascript:enterResult(${test.testId});">

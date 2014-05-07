@@ -138,12 +138,14 @@
 </script> 
 
 <div class="boxHeader"> 
-	<strong>See patient List by choosing lab</strong>
+	<strong>Get Patient List</strong>
 </div>
 <div class="box">
-	Date:
-	<input id="date" value="${currentDate}" style="text-align:right;"/>	
-	Investigation:
+&nbsp;
+	Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input id="date" value="${currentDate}" style="text-align:left; width:120px"/>
+<br style="margin:15px">&nbsp;
+	Investigation:&nbsp;
 	<select name="investigation" id="investigation">
 		<option value="0">Select an investigation</option>
 		<c:forEach var="investigation" items="${investigations}">
@@ -152,13 +154,14 @@
 	</select>
 	<a href="javascript:showPatientSearchResult()">Show search results</a>
 	
-	<div id="searchbox"></div>	
+	<div id="searchbox"></div>
+
 </div>
 
 <br/>
 
 <div id="patientSearchResultSection" style="display:none;">
-	<div class="boxHeader">Found Patients</div>
+	<div class="boxHeader">Patients Found</div>
 	<div class="box" id="patientResult"></div>
 </div>
 

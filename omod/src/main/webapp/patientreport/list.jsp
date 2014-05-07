@@ -103,20 +103,23 @@
 </script> 
 
 <div class="boxHeader"> 
-	<strong>See patient List by choosing lab</strong>
+	<strong>Get Patient List</strong>
 </div>
 <div class="box">
 	<table>
 		<tr>
-			<td>
-				Date:
-				<input id="date" value="${currentDate}" style="text-align:right;"/>
-			</td>
-			<td>
 				<div id="searchbox"></div>	
+		</tr>
+
+		<tr>
+			<td style="width:120px">
+				&nbsp;&nbsp;Date:
+			</td>
+			<td>	
+				<input id="date" value="${currentDate}" style="text-align:left; width:100px"/>
 			</td>
 			<td>
-				<input type="button" value="Print" onClick="printPatientReport();"/>
+				&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Print" onClick="printPatientReport();"/>
 			</td>
 			<td>
 				<a href="#" id='showPatientResult' style='display:none;' onclick="jQuery('#patientSearchResultSection').show(); jQuery('#showPatientResult').hide();">Show patients</a>
@@ -128,7 +131,7 @@
 <br/>
 
 <div id="patientSearchResultSection" style="display:none;">
-	<div class="boxHeader">Found Patients</div>
+	<div class="boxHeader">Patients Found</div>
 	<div class="box" id="patientResult"></div>
 </div>
 

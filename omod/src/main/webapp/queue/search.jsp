@@ -62,7 +62,7 @@
 					${test.patientIdentifier}
 				</td>
 				<td>
-					${test.patientName}
+					${fn:replace(test.patientName,',',' ')}
 				</td>
 				<td>
 					${test.gender}

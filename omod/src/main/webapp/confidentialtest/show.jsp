@@ -55,7 +55,7 @@
 		<table class="testInfo" cellspacing="15">
 			<tr>
 				<td class='info'>Patient Name</td>
-				<td>${patient.givenName} ${patient.middleName} ${patient.familyName}</td>
+				<td>${patient.givenName} ${fn:replace(patient.middleName,',',' ')} ${patient.familyName}</td>
 				<td></td>
 				<td class='info'>Patient Identifier</td>
 				<td>${patient.patientIdentifier.identifier}</td>

@@ -53,7 +53,7 @@
 				<td>${test.acceptedDate}</td>
 				<td>${test.patientIdentifier}</td>
 				<%-- ghanshyam 26-sept-2012 [Laboratory - Support #391] (New) Same format in the 'Print Worklist and 'Export Worklist' --%>
-				<td>${test.patientName}</td>
+				<td>${fn:replace(test.patientName,',',' ')}</td>
 				<td>${test.age}</td>
 				<td>${test.gender}</td>
 				<td>${test.sampleId}</td>

@@ -128,7 +128,7 @@ public class AjaxController {
 					.getPatientIdentifier().getIdentifier());
 			model.addAttribute("patient_age", patient.getAge());
 			model.addAttribute("patient_gender", patient.getGender());
-			model.addAttribute("patient_name", PatientUtils.getFullName(patient));
+			model.addAttribute("patient_name", PatientUtils.getFullName(patient).replace(","," "));
 			model.addAttribute("test_orderDate", orderDate);
 		}
 		return "/module/laboratory/ajax/showTestInfo";

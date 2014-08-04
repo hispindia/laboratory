@@ -113,7 +113,7 @@
 
 		<tr>
 			<td style="width:120px">
-				&nbsp;&nbsp;Date:
+				&nbsp;&nbsp;Date
 			</td>
 			<td>	
 				<input id="date" value="${currentDate}" style="text-align:left; width:100px"/>

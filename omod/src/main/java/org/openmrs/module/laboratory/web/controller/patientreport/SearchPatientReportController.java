@@ -142,6 +142,19 @@ public class SearchPatientReportController {
 					trm.setLowNormal(cn.getLowNormal().toString());
 				if (cn.getHiNormal() != null)
 					trm.setHiNormal(cn.getHiNormal().toString());
+				if(cn.getHiAbsolute()!=null){
+					trm.setHiAbsolute(cn.getHiAbsolute().toString());
+				}
+				if(cn.getHiCritical()!=null){
+					trm.setHiCritical(cn.getHiCritical().toString());
+				}
+				if(cn.getLowAbsolute()!=null){
+					trm.setLowAbsolute(cn.getLowAbsolute().toString());
+				}
+				if(cn.getLowCritical()!=null){
+					trm.setLowCritical(cn.getLowCritical().toString());
+				}
+
 			} else if (datatype.equalsIgnoreCase("Coded")) {
 				trm.setValue(obs.getValueCoded().getName().getName());
 			}

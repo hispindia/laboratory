@@ -23,10 +23,10 @@
 <table class="tablesorter" style="width:100%">
 	<thead>
 		<tr>		
-			<th><center>Test</center></th>
-			<th><center>Result</center></th>
-			<th><center>Units</center></th>
-			<th><center>Reference Range</center></th> 
+			<th style="width:40%"><center>Test</center></th>
+			<th style="width:10%"><center>Result</center></th>
+			<th style="width:10%"><center>Units</center></th>
+			<th style="width:40%"><center>Reference Range</center></th> 
 		</tr>
 	</thead>	
 	<tbody>
@@ -43,9 +43,15 @@
 		<td>${test.value}</td>
 		<td>${test.unit}</td>
 		<td>
-			${test.lowNormal}
-			<c:if test="${not empty test.lowNormal and not empty test.hiNormal}">//</c:if>
-			${test.hiNormal}
+			<c:if test="${not empty test.lowNormal or not empty test.hiNormal}">
+			Adult/Male:${test.lowNormal}//${test.hiNormal}
+			</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<c:if test="${not empty test.lowNormal or not empty test.hiNormal}">
+			Female:${test.lowCritical}//${test.hiCritical}
+			</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<c:if test="${not empty test.lowNormal or not empty test.hiNormal}">
+			Child:${test.lowAbsolute}//${test.hiAbsolute}
+			</c:if>
 		</td>
 	</tr>	
 </c:forEach>
@@ -78,10 +84,10 @@
 	<table class="wltable" cellspacing="0" style="width:100%; border: 1px solid; margin-left: auto; margin-right: auto;">
 		<thead>
 			<tr>
-				<th class="right"><center>Test</center></th>
-				<th class="right"><center>Result</center></th>
-				<th class="right"><center>Units</center></th>
-				<th><center>Reference Range</center></th> 
+				<th class="right" style="width:40%"><center>Test</center></th>
+				<th class="right" style="width:10%"><center>Result</center></th>
+				<th class="right" style="width:10%"><center>Units</center></th>
+				<th style="width:40%"><center>Reference Range</center></th> 
 			</tr>
 		</thead>	
 		<tbody>
@@ -97,9 +103,15 @@
 			<td class="right">${test.value}&nbsp;</td>
 			<td class="right">${test.unit}&nbsp;</td>
 			<td>&nbsp;
-				${test.lowNormal}
-				<c:if test="${not empty test.lowNormal and not empty test.hiNormal}">||</c:if>
-				${test.hiNormal}
+			<c:if test="${not empty test.lowNormal or not empty test.hiNormal}">
+			Adult/Male:${test.lowNormal}//${test.hiNormal}
+			</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<c:if test="${not empty test.lowNormal or not empty test.hiNormal}">
+			Female:${test.lowCritical}//${test.hiCritical}
+			</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<c:if test="${not empty test.lowNormal or not empty test.hiNormal}">
+			Child:${test.lowAbsolute}//${test.hiAbsolute}
+			</c:if>
 			</td>
 		</tr>	
 	</c:forEach>

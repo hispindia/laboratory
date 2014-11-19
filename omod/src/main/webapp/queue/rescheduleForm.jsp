@@ -21,7 +21,14 @@
 
 <script type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery('#rescheduledDate').datepicker({yearRange:'c-30:c+30', dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
+		
+		jQuery('#rescheduledDate').datepicker({yearRange:'c-30:c+30', dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true,
+		showOn: "button",		
+		 buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+         buttonImageOnly: true,
+		 minDate:1});
+		
+		
     });
 </script>
 
@@ -59,8 +66,10 @@
 					<td>${test.age}</td>
 				</tr>
 			</table>
-			<b>Reschedule Date</b>: <input id="rescheduledDate" value="${currentDate}" style="text-align:right;"/>
+			
+			<b>Reschedule Date</b>: <input id="rescheduledDate" value="${currentDate}" style="text-align:right;"/>&nbsp;
 			<input type="button" onClick="javascript:window.parent.rescheduleTest(${test.orderId}, $('#rescheduledDate').val()); tb_remove();" value="Reschedule" />
+			&nbsp;
 			<input type="button" onClick="tb_remove();" value="Cancel" />
 		</c:when>
 		<c:otherwise>

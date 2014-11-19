@@ -67,7 +67,9 @@
 						action="showForm.form"></form>
 					<div style='clear: both;'></div> <input type='button' value='Save'
 					onClick='submit(${test.testId});' /> <input type='button'
-					value='Cancel' onClick='jQuery("#row${test.testId}").hide();' /></td>
+					value='Cancel' onClick='jQuery("#row${test.testId}").hide();' />
+					
+					&nbsp; &nbsp; Click on "Save" to save the result</td>
 			</tr>
 		</c:forEach>
 	</tbody>

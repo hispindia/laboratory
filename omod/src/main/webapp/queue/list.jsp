@@ -20,6 +20,9 @@
 <%@ include file="/WEB-INF/template/include.jsp" %>
 <%@ include file="/WEB-INF/template/header.jsp" %>
 <%@ include file="../includes/js_css.jsp" %>
+
+<body onload="reset();">
+
 <br/>
 <openmrs:require privilege="Manage Laboratory Queue" otherwise="/login.htm" redirect="/module/laboratory/queue.form" />
 <%@ include file="../localHeader.jsp" %>
@@ -29,9 +32,13 @@
 	editingSampleId = false;	
 	// 19/06/2012 kesavulu: #76 After rescheduling a Patient , we should return to the same page instead we go back to page 1
 	currentPage = 1;
+
     jQuery(document).ready(function() {
-		jQuery('#date').datepicker({yearRange:'c-30:c+30', dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
+		jQuery('#date').datepicker({yearRange:'c-30:c+30', dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true,showOn: "button",
+                buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+                buttonImageOnly: true,});
     });
+
 	
 	// get all tests
 	function getTests(currentPage){
@@ -112,7 +119,8 @@
 	
 	function showSampleIdBox(orderId, sampleId){
 		var content = "";
-		content += "<input id='sampleId" + orderId + "' value='" + sampleId + "'/>";
+
+		content += "<input id='sampleId" + orderId + "' value='" + sampleId + "' readonly/>"; 
 		content += "<input type='button' value='Save' onclick='acceptTest(" + orderId + ")'/>";
 		content += "<input type='button' value='Cancel' onclick='cancelSampleIdBox(" + orderId + ")'/>";
 		jQuery("#sampleIdBox_" + orderId).html(content);

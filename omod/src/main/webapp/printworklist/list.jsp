@@ -33,7 +33,9 @@ var GLOBAL = {
 	};
 
 	jQuery(document).ready(function() {
-		jQuery('#date').datepicker({yearRange:'c-30:c+30', dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
+		jQuery('#date').datepicker({yearRange:'c-30:c+30', dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true,showOn: "button",
+                buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+                buttonImageOnly: true});
     });
 	
 	// get all tests
@@ -146,6 +148,7 @@ var GLOBAL = {
 		<option value="0">CONSOLIDATED LIST</option>	
 	</select>
 	<input type="button" value="Print worklist" onClick="printWorklist();"/>
+	&nbsp;
 	<%-- ghanshyam 24-sept-2012 New Requirement #361 [Laboratory] Export to Excel option in print worklist --%>
 	<input type="button" value="Export worklist" onClick="exportWorklist();" />
 	<br/>

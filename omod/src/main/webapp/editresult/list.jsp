@@ -37,9 +37,11 @@
 </style>
 
 <script type="text/javascript">
-
+	
 	jQuery(document).ready(function() {
-		jQuery('#date').datepicker({yearRange:'c-30:c+30', dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
+		jQuery('#date').datepicker({yearRange:'c-30:c+30', dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true,showOn: "button",
+                buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+                buttonImageOnly: true});
 		jQuery("#searchbox").showPatientSearchBox({				
 			searchBoxView: "${hospitalName}/default",			
 			resultView: "/module/laboratory/patientsearch/${hospitalName}/editresult",		
@@ -152,7 +154,8 @@
 			<option value="${investigation.id}">${investigation.name.name}</option>
 		</c:forEach>	
 	</select>
-	<a href="javascript:showPatientSearchResult()">Show search results</a>
+	
+	<input type="button" onclick="javascript:showPatientSearchResult()" value="Get Result"/>
 	
 	<div id="searchbox"></div>
 

@@ -42,13 +42,26 @@
 		</td>
 		<td>${test.value}</td>
 		<td>${test.unit}</td>
-		<td>
-			${test.lowNormal}
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		    <c:choose>
+		     <c:when test="${test.level eq 'LEVEL_INVESTIGATION'}" > </c:when>
+		      <c:when test="${test.level eq 'LEVEL_SET'}"> </c:when>
+		     <c:otherwise>
+			<label id="Adult/Male:">Adult/Male:</label>${test.lowNormal}
 			<c:if test="${not empty test.lowNormal and not empty test.hiNormal}">//</c:if>
-			${test.hiNormal}
+			${test.hiNormal}&nbsp;&nbsp;&nbsp;
+			<label id="Female:">Female:</label>${test.lowAbsolute}
+			<c:if test="${not empty test.lowAbsolute and not empty test.hiAbsolute}">//</c:if>
+			${test.hiAbsolute}&nbsp;&nbsp;&nbsp;
+			<label id="Child:">Child:</label>${test.lowCritical}
+			<c:if test="${not empty test.lowCritical and not empty test.hiCritical}">//</c:if>
+			${test.hiCritical}
+			</c:otherwise>
+			</c:choose>
 		</td>
 	</tr>	
 </c:forEach>
+
 	</tbody>
 </table>
 
@@ -97,9 +110,16 @@
 			<td class="right">${test.value}&nbsp;</td>
 			<td class="right">${test.unit}&nbsp;</td>
 			<td>&nbsp;
-				${test.lowNormal}
-				<c:if test="${not empty test.lowNormal and not empty test.hiNormal}">||</c:if>
-				${test.hiNormal}
+				Adult/Male:${test.lowNormal}
+			<c:if test="${not empty test.lowNormal and not empty test.hiNormal}">//</c:if>
+			${test.hiNormal}&nbsp;
+			Female:${test.lowAbsolute}
+			<c:if test="${not empty test.lowAbsolute and not empty test.hiAbsolute}">//</c:if>
+			${test.hiAbsolute}&nbsp;
+			Child:${test.lowCritical}
+			<c:if test="${not empty test.lowCritical and not empty test.hiCritical}">//</c:if>
+			${test.hiCritical}
+			
 			</td>
 		</tr>	
 	</c:forEach>

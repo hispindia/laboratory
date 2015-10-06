@@ -77,7 +77,7 @@ public class SearchController {
 			List<LabTest> laboratoryTests = ls.getAcceptedLaboratoryTests(date, phrase, allowableTests);			
 			List<TestModel> tests = LaboratoryUtil.generateModelsFromTests(laboratoryTests, testTreeMap);
 			//ghanshyam 04/07/2012 New Requirement #277
-			//Collections.sort(tests);
+			Collections.sort(tests);
 			model.addAttribute("tests", tests);
 			model.addAttribute("testNo", tests.size());
 		} catch (ParseException e) {

@@ -1,4 +1,4 @@
- <%--
+ // <%--
  *  Copyright 2009 Society for Health Information Systems Programmes, India (HISP India)
  *
  *  This file is part of Laboratory module.
@@ -42,13 +42,21 @@
 		</td>
 		<td>${test.value}</td>
 		<td>${test.unit}</td>
-		<td>
-			${test.lowNormal}
-			<c:if test="${not empty test.lowNormal and not empty test.hiNormal}">//</c:if>
-			${test.hiNormal}
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<c:if test="${not empty test.lowNormal or not empty test.hiNormal}">
+			Adult/Male:${test.lowNormal}//${test.hiNormal}
+			</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<c:if test="${not empty test.lowNormal or not empty test.hiNormal}">
+			Female:${test.lowAbsolute}//${test.hiAbsolute}
+			</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<c:if test="${not empty test.lowNormal or not empty test.hiNormal}">
+			Child:${test.lowCritical}//${test.hiCritical}
+			</c:if>
+		
 		</td>
 	</tr>	
 </c:forEach>
+
 	</tbody>
 </table>
 
@@ -97,9 +105,17 @@
 			<td class="right">${test.value}&nbsp;</td>
 			<td class="right">${test.unit}&nbsp;</td>
 			<td>&nbsp;
-				${test.lowNormal}
-				<c:if test="${not empty test.lowNormal and not empty test.hiNormal}">||</c:if>
-				${test.hiNormal}
+			<c:if test="${not empty test.lowNormal or not empty test.hiNormal}">
+			Adult/Male:${test.lowNormal}//${test.hiNormal}
+			</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<c:if test="${not empty test.lowNormal or not empty test.hiNormal}">
+			Female:${test.lowAbsolute}//${test.hiAbsolute}
+			</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<c:if test="${not empty test.lowNormal or not empty test.hiNormal}">
+			Child:${test.lowCritical}//${test.hiCritical}
+			</c:if>
+			
+			
 			</td>
 		</tr>	
 	</c:forEach>

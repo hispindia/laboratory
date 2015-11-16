@@ -35,6 +35,42 @@ public class TestResultModel implements Comparable<TestResultModel> {
 	public String value;
 	public String hiNormal;
 	public String lowNormal;
+	public String hiCritical;
+	public String lowCritical;
+	public String hiAbsolute;
+	public String lowAbsolute;
+	public String getHiCritical() {
+		return hiCritical;
+	}
+
+	public void setHiCritical(String hiCritical) {
+		this.hiCritical = hiCritical;
+	}
+
+	public String getLowCritical() {
+		return lowCritical;
+	}
+
+	public void setLowCritical(String lowCritical) {
+		this.lowCritical = lowCritical;
+	}
+
+	public String getHiAbsolute() {
+		return hiAbsolute;
+	}
+
+	public void setHiAbsolute(String hiAbsolute) {
+		this.hiAbsolute = hiAbsolute;
+	}
+
+	public String getLowAbsolute() {
+		return lowAbsolute;
+	}
+
+	public void setLowAbsolute(String lowAbsolute) {
+		this.lowAbsolute = lowAbsolute;
+	}
+
 	public String unit;
 	public String level = LEVEL_TEST;
 	public Concept concept;

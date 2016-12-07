@@ -1,4 +1,4 @@
- // <%--
+ <%--
  *  Copyright 2009 Society for Health Information Systems Programmes, India (HISP India)
  *
  *  This file is part of Laboratory module.

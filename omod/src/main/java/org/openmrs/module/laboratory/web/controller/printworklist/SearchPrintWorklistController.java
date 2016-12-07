@@ -86,8 +86,9 @@ public class SearchPrintWorklistController {
 			//ghanshyam 20/07/2012 New Requirement #320 [LABORATORY] Show Results as an Option.added one more parameter in method generateModelsForPrintWorkListFromTests showResults 
 			List<TestModel> tests = LaboratoryUtil.generateModelsForPrintWorkListFromTests(
 					laboratoryTests, testTreeMap,showResults);
-			// ghanshyam 04/07/2012 New Requirement #277
-			Collections.sort(tests);
+			
+			// New requirement patient shoud be displayed in ascending order of sample Id
+		//	Collections.sort(tests);
 			model.addAttribute("tests", tests);
 			model.addAttribute("testNo", tests.size());
 		} catch (ParseException e) {

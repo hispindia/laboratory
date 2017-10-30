@@ -108,14 +108,14 @@
 <div class="box">
 	<table>
 		<tr>
-			<td>
+			<td valign="top">
 				Date:
 				<input id="date" value="${currentDate}" style="text-align:right;"/>
 			</td>
 			<td>
 				<div id="searchbox"></div>	
 			</td>
-			<td>
+			<td valign="top">
 				<input type="button" value="Print" onClick="printPatientReport();"/>
 			</td>
 			<td>

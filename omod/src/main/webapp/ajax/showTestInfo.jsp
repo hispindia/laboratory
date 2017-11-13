@@ -23,7 +23,7 @@
 		<td style="text-align:right;">ID. No:</td>
 		<td><b>${patient_identifier}</b></td>
 		<td style="text-align:right;">Age:</td>
-		<td><b>${patient_age}</b></td>
+		<td><b>~${patient_age} Y</b></td>
 		<td style="text-align:right;">Gender:</td>
 		<td><b><c:choose>
 				<c:when test="${patient_gender eq 'M'}">Male</c:when>

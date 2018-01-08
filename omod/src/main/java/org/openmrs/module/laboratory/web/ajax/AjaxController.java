@@ -40,7 +40,10 @@ import org.openmrs.Concept;
 import org.openmrs.ConceptWord;
 import org.openmrs.Order;
 import org.openmrs.Patient;
+import org.openmrs.PersonAttribute;
+import org.openmrs.PersonAttributeType;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.model.LabTest;
 import org.openmrs.module.hospitalcore.util.PatientUtils;
 import org.openmrs.module.laboratory.LaboratoryService;
@@ -123,6 +126,8 @@ public class AjaxController {
 			Model model) {
 		Patient patient = Context.getPatientService().getPatient(
 				patientId);
+		HospitalCoreService hcs = Context.getService(HospitalCoreService.class);
+		List<PersonAttribute> pas = hcs.getPersonAttributes(patientId);
 		if (patient!=null) {
 			model.addAttribute("patient_identifier", patient
 					.getPatientIdentifier().getIdentifier());
@@ -130,6 +135,12 @@ public class AjaxController {
 			model.addAttribute("patient_gender", patient.getGender());
 			model.addAttribute("patient_name", PatientUtils.getFullName(patient));
 			model.addAttribute("test_orderDate", orderDate);
+			for (PersonAttribute pa : pas) {
+				PersonAttributeType attributeType = pa.getAttributeType();
+				if (attributeType.getPersonAttributeTypeId() == 29) {
+					model.addAttribute("dohId", pa.getValue());
+				}
+			}
 		}
 		return "/module/laboratory/ajax/showTestInfo";
 	}

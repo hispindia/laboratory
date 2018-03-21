@@ -20,9 +20,9 @@
 
 package org.openmrs.module.laboratory.extension.html;
 
-import org.openmrs.module.Extension;
+import org.openmrs.module.web.extension.LinkExt;
 
-public class LaboratoryHeader extends Extension {
+public class LaboratoryHeader extends LinkExt {
 
 	public MEDIA_TYPE getMediaType() {
 		return MEDIA_TYPE.html;

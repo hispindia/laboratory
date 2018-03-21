@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>laboratory</artifactId>
-	<version>0.6.4</version>
+	<version>0.6.5-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Laboratory</name>
 	<description>Laboratory module</description>
@@ -22,13 +22,13 @@
             <repository>
                 <id>shimla-nexus</id>
                 <name>Shimla nexus repo</name>
-                <url>http://hospdev.hispindia.org/nexus/content/repositories/tvha-releases/</url>
+                <url>http://hospdev.hispindia.org/nexus/content/repositories/tvhaupgraded-releases/</url>
             </repository>
         <!-- use the following if you ARE using a snapshot version. -->
             <snapshotRepository>
                 <id>shimla-nexus</id>
                 <name>Shimla nexus repo</name>
-                <url>http://hospdev.hispindia.org/nexus/content/repositories/tvha-snapshots/</url>
+                <url>http://hospdev.hispindia.org/nexus/content/repositories/tvhaupgraded-snapshots/</url>
                 <uniqueVersion>false</uniqueVersion>
              </snapshotRepository>
      </distributionManagement>
@@ -39,7 +39,7 @@
 	</modules>
 
 	<properties>
-		<openMRSVersion>1.8.0</openMRSVersion>
+		<openMRSVersion>1.9.7</openMRSVersion>
 	</properties>
 
 	<dependencyManagement>

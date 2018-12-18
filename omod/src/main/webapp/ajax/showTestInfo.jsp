@@ -18,8 +18,17 @@
  *
 --%> 
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<div align="center">
+  <tr><td style="text-align:center;">
+	     <img  type="image" src="../../moduleResources/laboratory/Logo_Tibet.jpg" align="middle"/>
+	     </td>
+	     </tr>
+		 <tr><td> <h2>${hospitalName}</h2> </td></tr>
+		 </div>
 <table border='0'>
+
 	<tr>
+	      
 		<td style="text-align:right;">ID. No:</td>
 		<td><b>${patient_identifier}</b></td>
 		<td style="text-align:right;">Age:</td>
@@ -41,7 +50,11 @@
 		<td><b>${patient_name}</b></td>
 		<td style="text-align:right;">Order date:</td>
 		<td><b>${test_orderDate}</b></td>
+		<td>&nbsp;&nbsp;&nbsp;&nbsp; </td>
+		<td style="text-align:right;">Patient category:</td>
+		<td><b>${catconcept}</b></td>
 		<td></td>
 		<td></td>
 	</tr>
+
 </table>

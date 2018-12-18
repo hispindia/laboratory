@@ -45,6 +45,7 @@ import org.openmrs.PersonAttributeType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.model.LabTest;
+import org.openmrs.module.hospitalcore.util.GlobalPropertyUtil;
 import org.openmrs.module.hospitalcore.util.PatientUtils;
 import org.openmrs.module.laboratory.LaboratoryService;
 import org.openmrs.module.laboratory.util.LaboratoryConstants;
@@ -135,10 +136,17 @@ public class AjaxController {
 			model.addAttribute("patient_gender", patient.getGender());
 			model.addAttribute("patient_name", PatientUtils.getFullName(patient));
 			model.addAttribute("test_orderDate", orderDate);
+			String hospitalName=GlobalPropertyUtil.getString("hospitalcore.hospitalParticularName", "Kollegal DVT Hospital");
+			model.addAttribute("hospitalName", hospitalName);
 			for (PersonAttribute pa : pas) {
 				PersonAttributeType attributeType = pa.getAttributeType();
 				if (attributeType.getPersonAttributeTypeId() == 29) {
 					model.addAttribute("dohId", pa.getValue());
+				}
+				if (attributeType.getPersonAttributeTypeId() == 14) {
+					Concept catconcept=Context.getConceptService().getConcept(pa.getValue());
+					
+					model.addAttribute("catconcept", catconcept.getName());
 				}
 			}
 		}

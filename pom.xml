@@ -12,9 +12,9 @@
 	<url>http://openmrs.org</url>
 
 	<scm>
-		<connection>scm:git:git://github.com/truonghatsts/radiology.git/</connection>
-		<developerConnection>scm:git:git://github.com/truonghatsts/radiology.git/</developerConnection>
-		<url>scm:git:git://github.com/truonghatsts/radiology.git/</url>
+		<connection>scm:git:git://github.com/truonghatsts/laboratory.git/</connection>
+		<developerConnection>scm:git:git://github.com/truonghatsts/laboratory.git/</developerConnection>
+		<url>scm:git:git://github.com/truonghatsts/laboratory.git/</url>
 	</scm>
 	
 	<distributionManagement>
